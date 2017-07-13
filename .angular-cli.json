@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "version": "1.0.0",
+    "name": "iF-UI"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "tsconfig": "tsconfig.app.json",
+      "prefix": "if",
+      "styles": [
+        "assets/bootstrap-3-3-7/css/bootstrap.min.css",
+        "styles.css"
+      ],
+      "environmentSource": "environment.ts"
+    }
+  ],
+  "defaults": {
+    "styleExt": "css",
+    "component": {
+      "inlineTemplate": false
+    }
+  }
+}

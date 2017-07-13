@@ -1,0 +1,32 @@
+h1 {
+  color: #375499;
+}
+
+.roles .well, .roles label.title {
+  margin-bottom: 0;
+}
+
+.roles.has-error .well {
+  border-color: #a94442;
+}
+
+.roles .well {
+  background-color: #fafafa;
+}
+
+.form-group .error {
+  position: absolute;
+  font-size: 90%;
+  display: none;
+  color: #c42e35;
+  background-color: #eee;
+  padding: 6px 10px;
+  margin-top: 1px;
+  border: 1px solid #ccc;
+  width: 100%;
+  z-index: 100;
+  border-radius: 2px;
+}
+.form-group:hover .error {
+  display: block;
+}

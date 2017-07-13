@@ -1,0 +1,6 @@
+<div class="well well-lg">
+  <label *ngFor="let item of elements" class="center-block">
+    <input type="checkbox" [checked]="hasId(item.id)" [disabled]="formArray.disabled" (change)="update(item.id, $event)">
+    {{item.description}}
+  </label>
+</div>

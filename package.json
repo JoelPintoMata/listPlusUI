@@ -1,0 +1,52 @@
+{
+  "name": "iFlavours-UI",
+  "version": "1.0.0",
+  "description": "iFlavours-UI assessment",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --proxy-config proxy.conf.json",
+    "start_demo": "ng serve --aot --prod --proxy-config proxy.conf.json",
+    "start_network": "ng serve --host 0.0.0.0 --proxy-config proxy.conf.json",
+    "build": "ng build",
+    "build_prod": "ng build --aot --prod",
+    "lint": "ng lint",
+    "prepush": "ng lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@angular/animations": "^4.1.1",
+    "@angular/common": "^4.1.1",
+    "@angular/compiler": "^4.1.1",
+    "@angular/core": "^4.1.1",
+    "@angular/flex-layout": "^2.0.0-beta.8",
+    "@angular/forms": "^4.1.1",
+    "@angular/http": "^4.1.1",
+    "@angular/material": "2.0.0-beta.5",
+    "@angular/platform-browser": "^4.1.1",
+    "@angular/platform-browser-dynamic": "^4.1.1",
+    "@angular/router": "^4.1.1",
+    "@ngx-translate/core": "^6.0.1",
+    "@ngrx/core": "^1.2.0",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4"
+  },
+  "devDependencies": {
+    "@angular/cli": "^1.0.3",
+    "@angular/compiler-cli": "^4.1.1",
+    "@angular/language-service": "^4.1.1",
+    "@types/jasmine": "2.5.38",
+    "@types/node": "~6.0.60",
+    "codelyzer": "~2.0.1",
+    "husky": "^0.13.3",
+    "jasmine-core": "~2.5.2",
+    "jasmine-spec-reporter": "~3.2.0",
+    "protractor": "~5.1.0",
+    "ts-node": "~2.0.0",
+    "tslint": "~4.5.0",
+    "typescript": "~2.2.0"
+  },
+  "repository": {}
+}

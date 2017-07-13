@@ -1,0 +1,26 @@
+<h2>User list <i *ngIf="isLoading">Loading users ... </i></h2>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>User name</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email address</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users | async" (click)="router.navigate(['/users', user.id])">
+    <td><a routerLink="/users/{{user.id}}">{{user.userName}}</a></td>
+    <td>{{user.firstName}}</td>
+    <td>{{user.lastName}}</td>
+    <td>{{user.emailAddress}}</td>
+  </tr>
+  </tbody>
+</table>
+<nav>
+  <a routerLink="/users/new">
+    <button class="btn btn-success">Add user</button>
+  </a>
+  <!--<button (click)="getUsers()" class="btn btn-primary">Refresh list</button>-->
+</nav>
