@@ -16,11 +16,8 @@ import { UserService } from './services/user.service';
 import { UserRolesResolverService } from './services/roles-resolver.service';
 import { CheckboxListComponent } from './components/checkbox-list.component';
 
-import { ApolloModule } from 'apollo-angular';
-import { ApolloClient, createNetworkInterface } from 'apollo-client';
-
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
+# import { ApolloModule } from 'apollo-angular';
+# import { ApolloClient, createNetworkInterface } from 'apollo-client';
 
 const appRoutes: Routes = [
   {
@@ -38,10 +35,6 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: 'lists',
-    component: ListListComponent
-  },
-  {
     path: 'users',
     component: UserListComponent
   },
@@ -52,30 +45,15 @@ const appRoutes: Routes = [
   }
 ];
 
-// by default, this client will send queries to `/graphql` (relative to the URL of your app)
-const client = new ApolloClient({
-  networkInterface: createNetworkInterface({
-    uri: 'http://localhost:8080'
-  }),
-});
-
-export function provideClient(): ApolloClient {
-  return client;
-}
-
 @NgModule({
   imports: [BrowserModule,
     HttpModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes),
-    ApolloModule.forRoot(provideClient)
+    RouterModule.forRoot(appRoutes)
   ],
   declarations: [AppComponent, UserDetailComponent, UserListComponent, ListListComponent, ListDetailComponent, CheckboxListComponent],
   providers: [UserService, ListService, UserRolesResolverService],
   bootstrap: [AppComponent]
 })
-
 export class AppModule {
 }
-
-platformBrowserDynamic().bootstrapModule(AppModule);
