@@ -1,22 +1,60 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environment';
 import 'rxjs/add/operator/map';
+
+import { Apollo } from 'apollo-angular';
+import { ApolloModule } from 'apollo-angular';
+import { ApolloClient, createNetworkInterface } from 'apollo-client';
+
+import gql from 'graphql-tag';
+
+
+interface QueryResponse{
+  currentUser
+  loading
+}
+
+const queryList = gql`
+  query list {
+    currentUser {
+      login
+      avatar_url
+    }
+  }
+`;
 
 @Injectable()
 export class ListService {
 
   BASE_URL = environment.rest.apiUrlRoot;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private apollo: Apollo) {
+  }
+
+  // by default, this client will send queries to `/graphql` (relative to the URL of your app)
+  provideClient(): ApolloClient {
+    return new ApolloClient({
+      networkInterface: createNetworkInterface({
+        uri: 'http://localhost:8080'
+      }),
+    });
   }
 
   getLists(): Observable<List[]> {
+    var xxx = this.apollo.watchQuery<QueryResponse>({
+      query: queryList
+    });
+    console.warn("xxx " + xxx);
     return this.http.get(`${this.BASE_URL}/lists`).map((res: Response) => <List[]>res.json());
   }
 
   getList(id: string): Observable<List> {
+    var xxx = this.apollo.watchQuery<QueryResponse>({
+      query: queryList
+    });
+    console.warn("xxx " + xxx);
     return this.http.get(`${this.BASE_URL}/lists/${id}`).map((res: Response) => <List>res.json());
   }
 
@@ -39,6 +77,7 @@ export class ListService {
 
 export class List {
   id?: string;
+  items: Item[];
   listName: string;
   password?: string;
   firstName: string;
@@ -49,4 +88,11 @@ export class List {
   city: string;
   birthDate: Date;
   roles: string[];
+}
+
+export class Item {
+  id?: string;
+  name: string;
+  order?: string;
+  quantity?: string;
 }

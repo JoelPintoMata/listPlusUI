@@ -16,8 +16,11 @@ import { UserService } from './services/user.service';
 import { UserRolesResolverService } from './services/roles-resolver.service';
 import { CheckboxListComponent } from './components/checkbox-list.component';
 
-# import { ApolloModule } from 'apollo-angular';
-# import { ApolloClient, createNetworkInterface } from 'apollo-client';
+// TODO we just need the environment in order to get the default backend url
+import { environment } from '../environment';
+
+import { ApolloModule } from 'apollo-angular';
+import { ApolloClient, createNetworkInterface } from 'apollo-client';
 
 const appRoutes: Routes = [
   {
@@ -45,6 +48,17 @@ const appRoutes: Routes = [
   }
 ];
 
+// by default, this client will send queries to `/graphql` (relative to the URL of your app)
+const client = new ApolloClient({
+  networkInterface: createNetworkInterface({
+    uri: environment.rest.apiUrlRoot
+  }),
+});
+
+export function provideClient(): ApolloClient {
+  return client;
+}
+
 @NgModule({
   imports: [BrowserModule,
     HttpModule,
@@ -55,5 +69,6 @@ const appRoutes: Routes = [
   providers: [UserService, ListService, UserRolesResolverService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }

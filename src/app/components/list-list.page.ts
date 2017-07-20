@@ -20,6 +20,7 @@ export class ListListComponent implements OnInit {
   }
 
   getLists() {
+    console.warn("ListListComponent:getLists");
     this.isLoading = true;
     this.lists = this.listService.getLists().finally(() => this.isLoading = false);
   }
