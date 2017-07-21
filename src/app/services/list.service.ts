@@ -12,12 +12,12 @@ import gql from 'graphql-tag';
 
 
 interface QueryResponse{
-  currentUser
+  hero
   loading
 }
 
 const QueryList = gql`
-  query QueryList {
+  {
     hero {
       id
     }
@@ -39,23 +39,30 @@ export class ListService {
     console.log('list.service: provideClient');
     return new ApolloClient({
       networkInterface: createNetworkInterface({
-        uri: 'http://localhost:8080/'
+        uri: 'http://localhost:8080'
       }),
     });
   }
 
   getLists(): Observable<List[]> {
-    console.log('list.service: getLists');
-    console.log('list.service: BASE_URL ' + `${this.BASE_URL}`);
-    console.log('list.service: QueryList ' + QueryList);
     console.log('list.service: this.apollo ' + this.apollo);
-    var result = this.apollo.watchQuery<QueryResponse>({
+    var result = this.apollo.watchQuery({
       query: QueryList
-    }).subscribe(({data}) => {
-      console.log('list.service: getLists : data ' + data);
-    });
+    }).subscribe((data) => {
+        console.log(data);
+    }, (err) => alert(err));
+
     console.log("result " + result);
-    return "hi"
+
+    var convertedString=JSON.stringify(result)
+    console.log("convertedString " + convertedString);
+
+    console.log("convertedString " + String(result));
+    console.log("convertedString " + String(convertedString));
+    console.log("convertedString " + JSON.stringify(result));
+    console.log("convertedString " + JSON.stringify(convertedString));
+
+    return this.http.get(`${this.BASE_URL}/lists`).map((res: Response) => <List[]>res.json());
   }
 
   getList(id: string): Observable<List> {
@@ -105,4 +112,9 @@ export class Item {
   name: string;
   order?: string;
   quantity?: string;
+}
+
+export class Hero {
+  id: string;
+  name: string;
 }
