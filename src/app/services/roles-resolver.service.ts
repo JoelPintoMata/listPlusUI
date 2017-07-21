@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 
 import { Resolve } from '@angular/router';
 @Injectable()
-export class UserRolesResolverService implements Resolve<Role[]> {
+export class RolesResolverService implements Resolve<Role[]> {
 
   constructor(private http: Http) {
   }

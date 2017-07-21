@@ -13,7 +13,7 @@ import { UserListComponent } from './components/user-list.page';
 import { ListService } from './services/list.service';
 import { UserService } from './services/user.service';
 
-import { UserRolesResolverService } from './services/roles-resolver.service';
+import { RolesResolverService } from './services/roles-resolver.service';
 import { CheckboxListComponent } from './components/checkbox-list.component';
 
 // TODO we just need the environment in order to get the default backend url
@@ -22,19 +22,25 @@ import { environment } from '../environment';
 import { ApolloModule } from 'apollo-angular';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
 const appRoutes: Routes = [
   {
     path: 'list/:id',
     component: ListDetailComponent,
     resolve: {
-      allRoles: UserRolesResolverService
+      allRoles: RolesResolverService
     }
+  },
+  {
+    path: 'lists',
+    component: ListListComponent
   },
   {
     path: 'users/:id',
     component: UserDetailComponent,
     resolve: {
-      allRoles: UserRolesResolverService
+      allRoles: RolesResolverService
     }
   },
   {
@@ -63,12 +69,15 @@ export function provideClient(): ApolloClient {
   imports: [BrowserModule,
     HttpModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ApolloModule.forRoot(provideClient)
   ],
   declarations: [AppComponent, UserDetailComponent, UserListComponent, ListListComponent, ListDetailComponent, CheckboxListComponent],
-  providers: [UserService, ListService, UserRolesResolverService],
+  providers: [UserService, ListService, RolesResolverService],
   bootstrap: [AppComponent]
 })
 
 export class AppModule {
 }
+
+platformBrowserDynamic().bootstrapModule(AppModule);

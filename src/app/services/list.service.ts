@@ -16,14 +16,14 @@ interface QueryResponse{
   loading
 }
 
-const queryList = gql`
-  query list {
-    currentUser {
-      login
-      avatar_url
+const QueryList = gql`
+  query QueryList {
+    hero {
+      id
     }
   }
 `;
+
 
 @Injectable()
 export class ListService {
@@ -31,30 +31,40 @@ export class ListService {
   BASE_URL = environment.rest.apiUrlRoot;
 
   constructor(private http: Http, private apollo: Apollo) {
+    console.log('list.service: constructor');
   }
 
   // by default, this client will send queries to `/graphql` (relative to the URL of your app)
   provideClient(): ApolloClient {
+    console.log('list.service: provideClient');
     return new ApolloClient({
       networkInterface: createNetworkInterface({
-        uri: 'http://localhost:8080'
+        uri: 'http://localhost:8080/'
       }),
     });
   }
 
   getLists(): Observable<List[]> {
-    var xxx = this.apollo.watchQuery<QueryResponse>({
-      query: queryList
+    console.log('list.service: getLists');
+    console.log('list.service: BASE_URL ' + `${this.BASE_URL}`);
+    console.log('list.service: QueryList ' + QueryList);
+    console.log('list.service: this.apollo ' + this.apollo);
+    var result = this.apollo.watchQuery<QueryResponse>({
+      query: QueryList
+    }).subscribe(({data}) => {
+      console.log('list.service: getLists : data ' + data);
     });
-    console.warn("xxx " + xxx);
-    return this.http.get(`${this.BASE_URL}/lists`).map((res: Response) => <List[]>res.json());
+    console.log("result " + result);
+    return "hi"
   }
 
   getList(id: string): Observable<List> {
-    var xxx = this.apollo.watchQuery<QueryResponse>({
-      query: queryList
+    console.log('list.service: getList ' + QueryList + ' id ' + id);
+    console.log('list.service: QueryList');
+    var result = this.apollo.watchQuery<QueryResponse>({
+      query: QueryList
     });
-    console.warn("xxx " + xxx);
+    console.log("result " + result);
     return this.http.get(`${this.BASE_URL}/lists/${id}`).map((res: Response) => <List>res.json());
   }
 
