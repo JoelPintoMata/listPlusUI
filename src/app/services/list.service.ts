@@ -16,14 +16,7 @@ interface QueryResponse{
   loading
 }
 
-const QueryList = gql`
-  {
-    hero {
-      id
-    }
-  }
-`;
-
+const QueryList = gql`{hero{id}}`;
 
 @Injectable()
 export class ListService {
@@ -31,38 +24,18 @@ export class ListService {
   BASE_URL = environment.rest.apiUrlRoot;
 
   constructor(private http: Http, private apollo: Apollo) {
+    this.apollo = apollo;
     console.log('list.service: constructor');
   }
 
-  // by default, this client will send queries to `/graphql` (relative to the URL of your app)
-  provideClient(): ApolloClient {
-    console.log('list.service: provideClient');
-    return new ApolloClient({
-      networkInterface: createNetworkInterface({
-        uri: 'http://localhost:8080'
-      }),
-    });
-  }
-
   getLists(): Observable<List[]> {
-    console.log('list.service: this.apollo ' + this.apollo);
     var result = this.apollo.watchQuery({
       query: QueryList
     }).subscribe((data) => {
         console.log(data);
     }, (err) => alert(err));
 
-    console.log("result " + result);
-
-    var convertedString=JSON.stringify(result)
-    console.log("convertedString " + convertedString);
-
-    console.log("convertedString " + String(result));
-    console.log("convertedString " + String(convertedString));
-    console.log("convertedString " + JSON.stringify(result));
-    console.log("convertedString " + JSON.stringify(convertedString));
-
-    return this.http.get(`${this.BASE_URL}/lists`).map((res: Response) => <List[]>res.json());
+    return this.http.get(`${this.BASE_URL}/listsc`).map((res: Response) => <List[]>res.json());
   }
 
   getList(id: string): Observable<List> {
@@ -72,15 +45,15 @@ export class ListService {
       query: QueryList
     });
     console.log("result " + result);
-    return this.http.get(`${this.BASE_URL}/lists/${id}`).map((res: Response) => <List>res.json());
+    return null;
   }
 
   addList(list: List): Observable<List> {
-    return this.http.post(`${this.BASE_URL}/lists`, list).map((res: Response) => <List>res.json());
+    return this.http.post(`${this.BASE_URL}/listsa`, list).map((res: Response) => <List>res.json());
   }
 
   updateList(list: List): Observable<List> {
-    return this.http.put(`${this.BASE_URL}/lists/${list.id}`, list).map((res: Response) => <List>res.json());
+    return this.http.put(`${this.BASE_URL}/listsb/${list.id}`, list).map((res: Response) => <List>res.json());
   }
 
   saveList(list: List): Observable<List> {

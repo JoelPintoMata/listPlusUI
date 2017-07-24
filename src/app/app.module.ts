@@ -57,7 +57,7 @@ const appRoutes: Routes = [
 // by default, this client will send queries to `/graphql` (relative to the URL of your app)
 const client = new ApolloClient({
   networkInterface: createNetworkInterface({
-    uri: 'http://localhost:8080'
+    uri: 'https://vast-springs-18949.herokuapp.com'
   }),
 });
 
