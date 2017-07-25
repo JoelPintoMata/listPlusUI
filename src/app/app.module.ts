@@ -54,11 +54,18 @@ const appRoutes: Routes = [
   }
 ];
 
+const networkInterface = createNetworkInterface({
+//    uri: 'https://vast-springs-18949.herokuapp.com'
+  uri: 'https://localhost:8080/graphql',
+  opts: {
+    // Additional fetch options like `credentials` or `headers`
+    headers: 'Access-Control-Allow-Origin: *',
+  }
+});
+
 // by default, this client will send queries to `/graphql` (relative to the URL of your app)
 const client = new ApolloClient({
-  networkInterface: createNetworkInterface({
-    uri: 'https://vast-springs-18949.herokuapp.com'
-  }),
+  networkInterface,
 });
 
 export function provideClient(): ApolloClient {
