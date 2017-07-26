@@ -55,8 +55,9 @@ const appRoutes: Routes = [
 ];
 
 const networkInterface = createNetworkInterface({
-//    uri: 'https://vast-springs-18949.herokuapp.com'
+  //uri: 'https://vast-springs-18949.herokuapp.com/graphql',
   uri: 'https://localhost:8080/graphql',
+// do we need this option to enable CORS?
   opts: {
     // Additional fetch options like `credentials` or `headers`
     headers: 'Access-Control-Allow-Origin: *',

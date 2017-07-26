@@ -24,33 +24,23 @@ export class ListService {
   BASE_URL = environment.rest.apiUrlRoot;
 
   constructor(private http: Http, private apollo: Apollo) {
-#    this.apollo = apollo;
-    this.apollo = provideClient();
     console.log('list.service: constructor');
+    this.apollo = apollo;
+
   }
 
   getLists(): Observable<List[]> {
-#    var result = this.apollo.watchQuery({
-#      query: QueryList
-#    }).subscribe((data) => {
-#        console.log(data);
+    console.log('list.service: getLists');
+    var result = this.apollo.watchQuery({
+      query: QueryList
+    }).subscribe((data) => {
+        console.log(data);
     }, (err) => alert(err));
-    var result = this.apollo.query({
-      query: QueryList,
-    })
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
 
     return this.http.get(`${this.BASE_URL}/listsc`).map((res: Response) => <List[]>res.json());
   }
 
   getList(id: string): Observable<List> {
-    console.log('list.service: getList ' + QueryList + ' id ' + id);
-    console.log('list.service: QueryList');
-    var result = this.apollo.watchQuery<QueryResponse>({
-      query: QueryList
-    });
-    console.log("result " + result);
     return null;
   }
 
