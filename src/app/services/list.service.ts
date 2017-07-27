@@ -16,10 +16,20 @@ interface QueryResponse{
   loading
 }
 
-const QueryList = gql`
-  query QueryList {
+const QueryHeros = gql`
+  query QueryHeros {
     hero {
       id
+    }
+  }
+`;
+
+
+const QueryLists = gql`
+  query QueryLists {
+    list(id:"1") {
+      id
+      name
     }
   }
 `;
@@ -36,13 +46,12 @@ export class ListService {
 
   getLists(): Observable<List[]> {
     console.log('list.service: getLists');
-    var result = this.apollo.watchQuery({
-      query: QueryList
-    }).subscribe((data) => {
-        console.log(data);
-    }, (err) => alert(err));
 
-    return this.http.get(`${this.BASE_URL}/listsc`).map((res: Response) => <List[]>res.json());
+    var result = this.apollo.watchQuery({
+      query: QueryLists
+    }), (err) => alert(err));
+
+    return result.map((res: Response) => <List[]>res.json());
   }
 
   getList(id: string): Observable<List> {
