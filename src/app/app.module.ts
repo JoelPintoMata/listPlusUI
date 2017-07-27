@@ -5,12 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ListDetailComponent } from './components/list-detail.page';
+import { MyListDetailComponent } from './components/myList-detail.page';
 import { UserDetailComponent } from './components/user-detail.page';
-import { ListListComponent } from './components/list-list.page';
+import { MyListListComponent } from './components/myList-list.page';
 import { UserListComponent } from './components/user-list.page';
 
-import { ListService } from './services/list.service';
+import { MyListService } from './services/myList.service';
 import { UserService } from './services/user.service';
 
 import { RolesResolverService } from './services/roles-resolver.service';
@@ -24,17 +24,18 @@ import { ApolloClient, createNetworkInterface } from 'apollo-client';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
+
 const appRoutes: Routes = [
   {
-    path: 'list/:id',
-    component: ListDetailComponent,
+    path: 'myList/:id',
+    component: MyListDetailComponent,
     resolve: {
       allRoles: RolesResolverService
     }
   },
   {
-    path: 'lists',
-    component: ListListComponent
+    path: 'myLists',
+    component: MyListListComponent
   },
   {
     path: 'users/:id',
@@ -55,8 +56,8 @@ const appRoutes: Routes = [
 ];
 
 const networkInterface = createNetworkInterface({
-  //uri: 'http://vast-springs-18949.herokuapp.com/graphql',
-  uri: 'http://localhost:8080/graphql',
+  uri: 'http://vast-springs-18949.herokuapp.com/graphql',
+  //uri: 'http://localhost:8080/graphql',
 // do we need this option to enable CORS?
   opts: {
     // Additional fetch options like `credentials` or `headers`
@@ -80,8 +81,8 @@ export function provideClient(): ApolloClient {
     RouterModule.forRoot(appRoutes),
     ApolloModule.forRoot(provideClient)
   ],
-  declarations: [AppComponent, UserDetailComponent, UserListComponent, ListListComponent, ListDetailComponent, CheckboxListComponent],
-  providers: [UserService, ListService, RolesResolverService],
+  declarations: [AppComponent, UserDetailComponent, UserListComponent, MyListDetailComponent, MyListListComponent, CheckboxListComponent],
+  providers: [UserService, MyListService, RolesResolverService],
   bootstrap: [AppComponent]
 })
 

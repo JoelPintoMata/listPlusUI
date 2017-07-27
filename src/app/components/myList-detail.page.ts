@@ -5,24 +5,24 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
-import { List, ListService } from '../services/list.service';
+import { MyList, MyListService } from '../services/myList.service';
 import { Role } from '../services/roles-resolver.service';
 
 @Component({
-  selector: 'if-list-detail',
-  templateUrl: './list-detail.page.html'
+  selector: 'if-myList-detail',
+  templateUrl: './myList-detail.page.html'
 })
-export class ListDetailComponent implements OnInit {
+export class MyListDetailComponent implements OnInit {
   isNew = false;
   feedback = '';
-  list: List;
+  myList: MyList;
   allRoles: Role[];
-  listForm: FormGroup;
+  myListForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private listService: ListService, private route: ActivatedRoute, private router: Router) {
-    this.listForm = this.fb.group({
+  constructor(private fb: FormBuilder, private myListService: MyListService, private route: ActivatedRoute, private router: Router) {
+    this.myListForm = this.fb.group({
       id: [''],
-      listName: ['', Validators.required],
+      myListName: ['', Validators.required],
       password: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -37,59 +37,37 @@ export class ListDetailComponent implements OnInit {
 
   ngOnInit() {
     this.allRoles = this.route.snapshot.data['allRoles'];
-    this.route.params
-      .switchMap((params: Params) => {
-        this.isNew = params['id'] === 'new';
-        if (this.isNew) {
-          return Observable.of({
-            listName: '',
-            firstName: '',
-            lastName: '',
-            emailAddress: '',
-            streetName: '',
-            houseNumber: null,
-            city: '',
-            birthDate: null,
-            roles: []
-          });
-        } else {
-          return this.listService.getList(params['id']);
-        }
-      })
-      .subscribe(list => {
-        this.setFormData(list);
-      });
   }
 
   get roles(): FormArray {
-    return this.listForm.get('roles') as FormArray;
+    return this.myListForm.get('roles') as FormArray;
   };
 
   setRoles(roles: string[]) {
     const roleFGs = roles.map(role => this.fb.control(role));
-    this.listForm.setControl('roles', this.fb.array(roleFGs));
+    this.myListForm.setControl('roles', this.fb.array(roleFGs));
   }
 
-  setFormData(list: List) {
-    this.list = list;
-    this.listForm.reset(list);
-    this.setRoles(this.list.roles);
+  setFormData(myList: MyList) {
+    this.myList = myList;
+    this.myListForm.reset(myList);
+    this.setRoles(this.myList.roles);
   }
 
   onSubmit() {
-    this.listForm.disable();
+    this.myListForm.disable();
     this.feedback = '';
-    this.listService.saveList(this.listForm.value)
-      .subscribe(list => {
+    this.myListService.saveMyList(this.myListForm.value)
+      .subscribe(myList => {
         if (this.isNew) {
-          this.router.navigate(['/lists', list.id]);
+          this.router.navigate(['/myLists', myList.id]);
         } else {
-          this.setFormData(list);
+          this.setFormData(myList);
         }
-        this.listForm.enable();
+        this.myListForm.enable();
         this.feedback = 'SUCCESS';
       }, response => {
-        this.listForm.enable();
+        this.myListForm.enable();
         if (response.status == 400) {
           this.feedback = 'INVALID';
           this.setValidationErrors(response.json());
@@ -101,16 +79,16 @@ export class ListDetailComponent implements OnInit {
 
   setValidationErrors(errors: any) {
     if (errors) {
-      for (let key in this.listForm.controls) {
+      for (let key in this.myListForm.controls) {
         if (errors[key]) {
-          this.listForm.get(key).setErrors({'server_validation': errors[key][0]});
+          this.myListForm.get(key).setErrors({'server_validation': errors[key][0]});
         }
       }
     }
   }
 
   getError(key: string) {
-    const control = this.listForm.get(key);
+    const control = this.myListForm.get(key);
     if(control.errors) {
       if(control.errors.server_validation) {
         return control.errors.server_validation;
@@ -122,7 +100,7 @@ export class ListDetailComponent implements OnInit {
   }
 
   revert() {
-    this.setFormData(this.list);
+    this.setFormData(this.myList);
     this.feedback = '';
   }
 }

@@ -1,0 +1,22 @@
+<h2>MyList myList <i *ngIf="isLoading">Loading myLists ... </i></h2>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>MyList ID</th>
+    <th>First name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let myList of myLists | async" (click)="router.navigate(['/myLists', myList.id])">
+    <td><a routerLink="/myLists/{{myList.id}}">{{myList.name}}</a></td>
+    <td>{{myList.name}}</td>
+  </tr>
+  </tbody>
+</table>
+<nav>
+  <a routerLink="/myLists/new">
+    <button class="btn btn-success">Add myList</button>
+  </a>
+  <!--<button (click)="getMyLists()" class="btn btn-primary">Refresh myList</button>-->
+</nav>
