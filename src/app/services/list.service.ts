@@ -16,7 +16,13 @@ interface QueryResponse{
   loading
 }
 
-const QueryList = gql`{hero{id}}`;
+const QueryList = gql`
+  query QueryList {
+    hero {
+      id
+    }
+  }
+`;
 
 @Injectable()
 export class ListService {
@@ -26,7 +32,6 @@ export class ListService {
   constructor(private http: Http, private apollo: Apollo) {
     console.log('list.service: constructor');
     this.apollo = apollo;
-
   }
 
   getLists(): Observable<List[]> {
