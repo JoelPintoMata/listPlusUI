@@ -12,7 +12,8 @@ import { ApolloQueryResult } from 'apollo-client';
 })
 
 export class MyListListComponent implements OnInit {
-  myLists: Observable<ApolloQueryResult<MyList>>;
+
+  myLists: ApolloQueryResult<MyList[]>;
   isLoading = false;
 
   constructor(private myListService: MyListService, private router: Router) {
@@ -27,6 +28,13 @@ export class MyListListComponent implements OnInit {
   getMyLists() {
     console.log('myList: getMyLists');
     this.isLoading = true;
-    this.myLists = this.myListService.getMyLists().finally(() => this.isLoading = false);
+    this.myListService.getMyLists().subscribe(({data}) => {
+      data.map(x => {
+        alert("data" + x);
+        alert("data" + x.id);
+        alert("data" + x.name);
+      });
+      this.isLoading = false;
+    });
   }
 }

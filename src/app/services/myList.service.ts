@@ -47,18 +47,13 @@ export class MyListService {
     this.apollo = apollo;
   }
 
-  getMyLists(): ApolloQueryObservable<MyList> {
+  getMyLists(): ApolloQueryObservable<MyList[]> {
     console.log('myList.service: getMyLists');
 
-    var result = this.apollo.watchQuery<QueryResponse>({
+    var result = this.apollo.watchQuery({
       query: QueryMyLists
-    }).subscribe(({data}) => {
-      this.loading = data.loading;
-      this.list = data.list;
-      alert(this.list)
     });
-
-    return this.list;
+    return result;
   }
 
   getMyList(id: string): Observable<MyList> {
