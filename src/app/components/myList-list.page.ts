@@ -13,7 +13,8 @@ import { ApolloQueryResult } from 'apollo-client';
 
 export class MyListListComponent implements OnInit {
 
-  myLists: ApolloQueryResult<MyList[]>;
+  myLists = [];
+  myListsAux: MyList[];
   isLoading = false;
 
   constructor(private myListService: MyListService, private router: Router) {
@@ -29,12 +30,12 @@ export class MyListListComponent implements OnInit {
     console.log('myList: getMyLists');
     this.isLoading = true;
     this.myListService.getMyLists().subscribe(({data}) => {
-      data.map(x => {
-        alert("data" + x);
-        alert("data" + x.id);
-        alert("data" + x.name);
-      });
+      console.log(data);
+//      .data unwraps a ApolloQueryResult
+      console.log("data " + data);
       this.isLoading = false;
+      this.myListsAux = data;
+      this.myLists.push(data);
     });
   }
 }
