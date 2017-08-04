@@ -1,4 +1,4 @@
-<h2>MyList<i *ngIf="isLoading">Loading myLists ... </i></h2>
+<h2>My list(s)<i *ngIf="isLoading">Loading myLists ... </i></h2>
 <table class="table table-hover">
   <thead>
   <tr>
@@ -8,8 +8,8 @@
   </thead>
   <tbody>
   <tr *ngFor="let myList of myLists">
-    <td><a routerLink="/myLists/{{myList.id}}">{{myList.name}}</a></td>
-    <td>{{myList.id}}</td>
+    <td><a routerLink="/myList/{{myList.id}}">{{myList.id}}</a></td>
+    <td>{{myList.name}}</td>
   </tr>
   </tbody>
 </table>

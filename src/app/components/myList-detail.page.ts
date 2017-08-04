@@ -8,10 +8,14 @@ import 'rxjs/add/observable/of';
 import { MyList, MyListService } from '../services/myList.service';
 import { Role } from '../services/roles-resolver.service';
 
+import { ApolloQueryObservable } from 'apollo-angular';
+
 @Component({
   selector: 'if-myList-detail',
   templateUrl: './myList-detail.page.html'
 })
+
+//localhost:4200/myList/1
 export class MyListDetailComponent implements OnInit {
   isNew = false;
   feedback = '';
@@ -20,23 +24,56 @@ export class MyListDetailComponent implements OnInit {
   myListForm: FormGroup;
 
   constructor(private fb: FormBuilder, private myListService: MyListService, private route: ActivatedRoute, private router: Router) {
+    console.log('myList-detail: constructor');
     this.myListForm = this.fb.group({
       id: [''],
-      myListName: ['', Validators.required],
-      password: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      emailAddress: ['', Validators.required],
-      streetName: ['', Validators.required],
-      houseNumber: ['', Validators.required],
-      city: ['', Validators.required],
-      birthDate: [null, Validators.required],
+      myListName: [''],
+      password: [''],
+      firstName: [''],
+      lastName: [''],
+      emailAddress: [''],
+      streetName: [''],
+      houseNumber: [''],
+      city: [''],
+      birthDate: [null],
       roles: this.fb.array([])
     });
   }
 
   ngOnInit() {
-    this.allRoles = this.route.snapshot.data['allRoles'];
+    console.log('myList-detail: ngOnInit');
+    //this.allRoles = this.route.snapshot.data['allRoles'];
+    this.route.params
+      .switchMap((params: Params) => {
+        this.isNew = params['id'] === 'new';
+        if (this.isNew) {
+          return null;
+        } else {
+          var xxx: ApolloQueryObservable<MyList[]>;
+          xxx = this.myListService.getMyList(params['id']);
+          console.log("xxx");
+          console.log(xxx);
+          var result = JSON.parse(JSON.stringify(xxx));
+          console.log(result);
+          //return result;
+          return xxx;
+          //return this.myListService.getMyList(params['id']);
+        }
+      })
+      .subscribe(({data}) => {
+        var obj = JSON.parse(JSON.stringify(data)).list;
+        this.setFormData(obj);
+      });
+  }
+
+  getMyList(id: string) {
+    return this.myListService.getMyList(id).subscribe(({data}) => {
+
+      var obj = JSON.parse(JSON.stringify(data));
+      console.log("obj");
+      console.log(obj);
+      this.myList = obj.list.data[0];
+    });
   }
 
   get roles(): FormArray {
@@ -51,7 +88,7 @@ export class MyListDetailComponent implements OnInit {
   setFormData(myList: MyList) {
     this.myList = myList;
     this.myListForm.reset(myList);
-    this.setRoles(this.myList.roles);
+    //this.setRoles(this.myList.roles);
   }
 
   onSubmit() {

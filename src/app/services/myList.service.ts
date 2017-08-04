@@ -24,10 +24,18 @@ const QueryHeros = gql`
   }
 `;
 
-
 const QueryMyLists = gql`
   query QueryMyLists {
     list {
+      id
+      name
+    }
+  }
+`;
+
+const QueryMyList = gql`
+  query QueryMyList {
+    list(id:"1") {
       id
       name
     }
@@ -56,8 +64,13 @@ export class MyListService {
     return result;
   }
 
-  getMyList(id: string): Observable<MyList> {
-    return this.http.get(`${this.BASE_URL}/myList/${id}`).map((res: Response) => <MyList>res.json());
+  getMyList(id: string): ApolloQueryObservable<MyList[]> {
+    console.log('myList.service: getMyList id ' + id);
+
+    var result = this.apollo.watchQuery({
+      query: QueryMyList
+    });
+    return result;
   }
 
   addMyList(myList: MyList): Observable<MyList> {

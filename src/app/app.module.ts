@@ -28,10 +28,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 const appRoutes: Routes = [
   {
     path: 'myList/:id',
-    component: MyListDetailComponent,
-    resolve: {
-      allRoles: RolesResolverService
-    }
+    component: MyListDetailComponent
   },
   {
     path: 'myLists',

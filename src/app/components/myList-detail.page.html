@@ -25,8 +25,8 @@
     <div class="col-sm-8">
 
       <div class="form-group" [ngClass]="{'has-error has-feedback': getError('firstName')}">
-        <label class="center-block">First name: </label>
-        <input class="form-control" formControlName="firstName">
+        <label class="center-block">Name: </label>
+        <input class="form-control" formControlName="name">
         <span class="error" *ngIf="getError('firstName')">{{getError('firstName')}}</span>
       </div>
 
