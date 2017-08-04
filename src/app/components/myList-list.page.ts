@@ -35,21 +35,24 @@ export class MyListListComponent implements OnInit {
       console.log("data " + data);
       this.isLoading = false;
 
-      var obj = JSON.parse(JSON.stringify(this.myLists));
-      alert(obj);
-      obj.map((item, i) => {
-        alert(item);
-        alert(i);
-        this.myList = new MyList("aaa", "aaa");
-        console.log(this.myList);
-        alert(this.myList);
-        this.myLists.push(this.myList);
-      });
+      var obj = JSON.parse(data);
+//      var obj = JSON.parse(JSON.stringify(data));
+//     alert(obj);
 
 //      alert(obj.list[0].id);
 //      alert(obj.list[0].name);
 //      alert(obj.list[1].id);
 //      alert(obj.list[1].name);
+
+      for (var item in obj) {
+         if (obj.hasOwnProperty(item)) {
+            console.log(item.id);
+            console.log(item.name);
+            this.myList = new MyList(item.id, item.name);
+            console.log(this.myList);
+            this.myLists.push(this.myList);
+         }
+      };
 
 //      this.myLists.push(obj);
 //      this.myLists = JSON.stringify(this.myLists);
