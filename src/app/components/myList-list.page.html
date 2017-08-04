@@ -7,7 +7,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let myList of myLists | async">
+  <tr *ngFor="let myList of myLists">
     <td><a routerLink="/myLists/{{myList.id}}">{{myList.name}}</a></td>
     <td>{{myList.id}}</td>
   </tr>

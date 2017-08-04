@@ -78,18 +78,14 @@ export class MyListService {
 }
 
 export class MyList {
-  id?: string;
-  items: Item[];
+  id: string;
   name: string;
-  password?: string;
-  firstName: string;
-  lastName: string;
-  emailAddress: string;
-  streetName: string;
-  houseNumber: number;
-  city: string;
-  birthDate: Date;
-  roles: string[];
+  roles?: string[];
+
+  constructor(public idAux: string, public nameAux: string) {
+    this.id = idAux;
+    this.name = nameAux;
+  }
 }
 
 export class Item {
