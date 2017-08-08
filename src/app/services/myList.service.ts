@@ -95,9 +95,9 @@ export class MyList {
   name: string;
   roles?: string[];
 
-  constructor(public idAux: string, public nameAux: string) {
-    this.id = idAux;
-    this.name = nameAux;
+  constructor MyList(id: string, name: string) {
+    this.id = id;
+    this.name = name;
   }
 }
 
