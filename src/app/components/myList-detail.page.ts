@@ -15,7 +15,6 @@ import { ApolloQueryObservable } from 'apollo-angular';
   templateUrl: './myList-detail.page.html'
 })
 
-//localhost:4200/myList/1
 export class MyListDetailComponent implements OnInit {
   isNew = false;
   feedback = '';
@@ -27,7 +26,7 @@ export class MyListDetailComponent implements OnInit {
     console.log('myList-detail: constructor');
     this.myListForm = this.fb.group({
       id: [''],
-      myListName: [''],
+      name: [''],
       password: [''],
       firstName: [''],
       lastName: [''],
@@ -54,10 +53,8 @@ export class MyListDetailComponent implements OnInit {
       })
       .subscribe(({data}) => {
         var obj = JSON.parse(JSON.stringify(data));
-        var myList = new MyList(obj.list[0].id, obj.list[0].name);
-//        console.log(obj[0]);
-        console.log(myList);
-        this.setFormData(myList);
+        console.log("obj.list " + obj.list[0].name);
+        this.setFormData(obj.list[0]);
       });
   }
 

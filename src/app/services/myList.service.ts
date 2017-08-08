@@ -95,7 +95,8 @@ export class MyList {
   name: string;
   roles?: string[];
 
-  constructor MyList(id: string, name: string) {
+  setMyList(id: string, name: string) {
+    console.log('myList.service: setMyList id ' + id + ' name ' + name);
     this.id = id;
     this.name = name;
   }

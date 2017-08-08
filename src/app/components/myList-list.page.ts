@@ -13,7 +13,7 @@ import { ApolloQueryResult } from 'apollo-client';
 
 export class MyListListComponent implements OnInit {
 
-  myLists: Observable<MyList[]>;
+  myLists: MyList[];
   isLoading = false;
 
   constructor(private myListService: MyListService, private router: Router) {
