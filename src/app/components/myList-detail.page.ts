@@ -49,19 +49,12 @@ export class MyListDetailComponent implements OnInit {
         if (this.isNew) {
           return null;
         } else {
-          var xxx: ApolloQueryObservable<MyList[]>;
-          xxx = this.myListService.getMyList(params['id']);
-          console.log("xxx");
-          console.log(xxx);
-          var result = JSON.parse(JSON.stringify(xxx));
-          console.log(result);
-          //return result;
-          return xxx;
-          //return this.myListService.getMyList(params['id']);
+          return this.myListService.getMyList(params['id']);
         }
       })
       .subscribe(({data}) => {
         var obj = JSON.parse(JSON.stringify(data)).list;
+        console.log(obj);
         this.setFormData(obj);
       });
   }
