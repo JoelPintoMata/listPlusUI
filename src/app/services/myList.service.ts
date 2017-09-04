@@ -26,7 +26,7 @@ const QueryHeros = gql`
 
 const QueryMyLists = gql`
   query QueryMyLists {
-    list {
+    myList {
       id
       name
     }
@@ -35,9 +35,13 @@ const QueryMyLists = gql`
 
 const QueryMyList = gql`
   query QueryMyList {
-    list(id:"1") {
+    myList(id:"1") {
       id
       name
+      items {
+        id
+        name
+      }
     }
   }
 `;
@@ -93,17 +97,18 @@ export class MyListService {
 export class MyList {
   id: string;
   name: string;
-  roles?: string[];
+  items: Item[];
 
-  setMyList(id: string, name: string) {
+  setMyList(id: string, name: string, items: Item[]) {
     console.log('myList.service: setMyList id ' + id + ' name ' + name);
     this.id = id;
     this.name = name;
+    this.items = items;
   }
 }
 
 export class Item {
-  id?: string;
+  id: string;
   name: string;
   order?: string;
   quantity?: string;

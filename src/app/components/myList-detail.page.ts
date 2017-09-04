@@ -5,8 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
-import { MyList, MyListService } from '../services/myList.service';
-import { Role } from '../services/roles-resolver.service';
+import { MyList, Item, MyListService } from '../services/myList.service';
 
 import { ApolloQueryObservable } from 'apollo-angular';
 
@@ -19,7 +18,6 @@ export class MyListDetailComponent implements OnInit {
   isNew = false;
   feedback = '';
   myList: MyList;
-  allRoles: Role[];
   myListForm: FormGroup;
 
   constructor(private fb: FormBuilder, private myListService: MyListService, private route: ActivatedRoute, private router: Router) {
@@ -27,21 +25,12 @@ export class MyListDetailComponent implements OnInit {
     this.myListForm = this.fb.group({
       id: [''],
       name: [''],
-      password: [''],
-      firstName: [''],
-      lastName: [''],
-      emailAddress: [''],
-      streetName: [''],
-      houseNumber: [''],
-      city: [''],
-      birthDate: [null],
-      roles: this.fb.array([])
+      items: this.fb.array([])
     });
   }
 
   ngOnInit() {
     console.log('myList-detail: ngOnInit');
-    //this.allRoles = this.route.snapshot.data['allRoles'];
     this.route.params
       .switchMap((params: Params) => {
         this.isNew = params['id'] === 'new';
@@ -53,34 +42,39 @@ export class MyListDetailComponent implements OnInit {
       })
       .subscribe(({data}) => {
         var obj = JSON.parse(JSON.stringify(data));
-        console.log("obj.list " + obj.list[0].name);
-        this.setFormData(obj.list[0]);
+//        console.log("obj.list.item.0 " + obj.myList[0].id);
+//        console.log("obj.list.item.0 " + obj.myList[0].name);
+//        console.log("obj.list.item.0 " + obj.myList[0].items[0].id);
+//        console.log("obj.list.item.0 " + obj.myList[0].items[0].name);
+        this.setFormData(obj.myList[0]);
       });
   }
 
   getMyList(id: string) {
     return this.myListService.getMyList(id).subscribe(({data}) => {
-
       var obj = JSON.parse(JSON.stringify(data));
-      console.log("obj");
-      console.log(obj);
-      this.myList = obj.list.data[0];
+      this.myList = obj.myList.data[0];
     });
   }
 
-  get roles(): FormArray {
-    return this.myListForm.get('roles') as FormArray;
+  get items(): FormArray {
+    return this.myListForm.get('items') as FormArray;
   };
 
-  setRoles(roles: string[]) {
-    const roleFGs = roles.map(role => this.fb.control(role));
-    this.myListForm.setControl('roles', this.fb.array(roleFGs));
+  setItems(items: Item[]) {
+    const itemFGs = items.map(item => {
+      console.log("setItems.item " + item.id);
+      console.log("setItems.item " + item.name);
+      this.fb.control(item.name)
+    });
+    this.myListForm.setControl('items', this.fb.array(itemFGs));
   }
+
 
   setFormData(myList: MyList) {
     this.myList = myList;
     this.myListForm.reset(myList);
-    //this.setRoles(this.myList.roles);
+    this.setItems(this.myList.items);
   }
 
   onSubmit() {

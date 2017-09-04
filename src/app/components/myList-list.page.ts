@@ -32,7 +32,7 @@ export class MyListListComponent implements OnInit {
 
       var obj = JSON.parse(JSON.stringify(data));
 
-      this.myLists = obj.list;
+      this.myLists = obj.myList;
     });
   }
 }

@@ -1,4 +1,8 @@
 <h2>List Details</h2>
-<form [formGroup]="myListForm" (ngSubmit)="onSubmit()" novalidate>
-        <input class="form-control" formControlName="name">
+<div ng-controller="MainCtrl as ctrl">
+  <form [formGroup]="myListForm" (ngSubmit)="onSubmit()" novalidate>
+  <input class="form-control" formControlName="id">
+  <input class="form-control" formControlName="name">
+  <input class="form-control" formControlName="items">
 </form>
+</div>
