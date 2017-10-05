@@ -62,11 +62,15 @@ export class MyListDetailComponent implements OnInit {
   };
 
   setItems(items: Item[]) {
-    const itemFGs = items.map(item => {
-      console.log("setItems.item " + item.id);
-      console.log("setItems.item " + item.name);
-      this.fb.control(item.name)
+    let itemFGs = items.map(item => {
+      console.log("setItems.item " + item);
+//      console.log("setItems.item.id " + item.id);
+//      console.log("setItems.item.name " + item.name);
+      this.fb.group(item)
     });
+    console.log("setItems.itemFGs " + itemFGs);
+    console.log("setItems.itemFGs.length " + itemFGs[1]);
+    console.log("setItems.itemFGs.length " + itemFGs.length);
     this.myListForm.setControl('items', this.fb.array(itemFGs));
   }
 

@@ -1,8 +1,14 @@
 <h2>List Details</h2>
 <div ng-controller="MainCtrl as ctrl">
   <form [formGroup]="myListForm" (ngSubmit)="onSubmit()" novalidate>
-  <input class="form-control" formControlName="id">
-  <input class="form-control" formControlName="name">
-  <input class="form-control" formControlName="items">
-</form>
+    <input class="form-control" formControlName="id">
+    <input class="form-control" formControlName="name">
+    <p>Skill :
+      <select formControlName="items">
+        <option *ngFor="let item of items" [ngValue]="item.id">
+          {{ item.name }}
+        </option>
+      </select>
+    </p>
+  </form>
 </div>
