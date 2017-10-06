@@ -41,6 +41,8 @@ const QueryMyList = gql`
       items {
         id
         name
+        quantity
+        order
       }
     }
   }
@@ -100,7 +102,6 @@ export class MyList {
   items: Item[];
 
   setMyList(id: string, name: string, items: Item[]) {
-    console.log('myList.service: setMyList id ' + id + ' name ' + name);
     this.id = id;
     this.name = name;
     this.items = items;
@@ -112,9 +113,4 @@ export class Item {
   name: string;
   order?: string;
   quantity?: string;
-}
-
-export class Hero {
-  id: string;
-  name: string;
 }

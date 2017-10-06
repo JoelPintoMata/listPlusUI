@@ -29,6 +29,7 @@ export class MyListDetailComponent implements OnInit {
         this.fb.group({
           id: [''],
           name: [''],
+          quantity: [''],
         })
       ])
     });
