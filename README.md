@@ -3,21 +3,7 @@
 ## Run
 $ npm start
 
-#const queryList = gql`
-#  query query {
-#    hero {
-#      id
-#    }
-#  }
-#`;
-#
-#const queryList1 = gql`
-#  query list(id:"1") {
-#    id
-#    name
-#    items {
-#      id
-#      name
-#    }
-#  }
-#`;
+### Endpoints
+
+Endpoint                                          Example                           Description
+http://<server_name>:<port>/myList/<my_list_id>   http://localhost:4200/myList/1    My list details

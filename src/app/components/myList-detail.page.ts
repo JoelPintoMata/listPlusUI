@@ -47,11 +47,6 @@ export class MyListDetailComponent implements OnInit {
       })
       .subscribe(({data}) => {
         var obj = JSON.parse(JSON.stringify(data));
-//        console.log("obj.list.item.0 " + obj.myList[0].id);
-//        console.log("obj.list.item.0 " + obj.myList[0].name);
-//        console.log("obj.list.item.0 " + obj.myList[0].items[0].id);
-//        console.log("obj.list.item.0 " + obj.myList[0].items[0].name);
-        this.setFormData(obj.myList[0]);
         this.setFormData(obj.myList[0]);
       });
   }
