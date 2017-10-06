@@ -25,7 +25,12 @@ export class MyListDetailComponent implements OnInit {
     this.myListForm = this.fb.group({
       id: [''],
       name: [''],
-      items: this.fb.array([])
+      items: this.fb.array([
+        this.fb.group({
+          id: [''],
+          name: [''],
+        })
+      ])
     });
   }
 
@@ -47,6 +52,7 @@ export class MyListDetailComponent implements OnInit {
 //        console.log("obj.list.item.0 " + obj.myList[0].items[0].id);
 //        console.log("obj.list.item.0 " + obj.myList[0].items[0].name);
         this.setFormData(obj.myList[0]);
+        this.setFormData(obj.myList[0]);
       });
   }
 
@@ -63,17 +69,10 @@ export class MyListDetailComponent implements OnInit {
 
   setItems(items: Item[]) {
     let itemFGs = items.map(item => {
-      console.log("setItems.item " + item);
-//      console.log("setItems.item.id " + item.id);
-//      console.log("setItems.item.name " + item.name);
-      this.fb.group(item)
+      return this.fb.group(item);
     });
-    console.log("setItems.itemFGs " + itemFGs);
-    console.log("setItems.itemFGs.length " + itemFGs[1]);
-    console.log("setItems.itemFGs.length " + itemFGs.length);
     this.myListForm.setControl('items', this.fb.array(itemFGs));
   }
-
 
   setFormData(myList: MyList) {
     this.myList = myList;

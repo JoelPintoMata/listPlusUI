@@ -3,12 +3,14 @@
   <form [formGroup]="myListForm" (ngSubmit)="onSubmit()" novalidate>
     <input class="form-control" formControlName="id">
     <input class="form-control" formControlName="name">
-    <p>Skill :
-      <select formControlName="items">
-        <option *ngFor="let item of items" [ngValue]="item.id">
-          {{ item.name }}
-        </option>
-      </select>
-    </p>
+    <div formArrayName="items">
+      <label>Items</label>
+      <div *ngFor="let item of myListForm.controls.items.controls; let i = index">
+        <div formGroupName="{{i}}">
+          <input class="form-control" formControlName="id">
+          <input class="form-control" formControlName="name">
+        </div>
+      </div>
+    </div>
   </form>
 </div>
