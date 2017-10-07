@@ -46,6 +46,7 @@
     </div>
 
     <nav style="margin-bottom: 30px">
+      <button type="button" class="btn btn-primary" (click)="addRowItem()">Add row</button>
       <button type="submit" [disabled]="myListForm.pristine" class="btn btn-success">{{isNew? 'Add' : 'Update'}}</button>
       <button *ngIf="!myListForm.pristine" type="reset" (click)="revert()" class="btn btn-primary">Revert</button>
       <a *ngIf="myListForm.pristine" routerLink="/myLists">

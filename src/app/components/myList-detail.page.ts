@@ -59,6 +59,11 @@ export class MyListDetailComponent implements OnInit {
     });
   }
 
+  addRowItem() {
+    const control = <FormArray>this.myListForm.controls['items'];
+    control.push(this.fb.group(['', '', '', '']));
+  };
+
   get items(): FormArray {
     return this.myListForm.get('items') as FormArray;
   };
