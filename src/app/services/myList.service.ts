@@ -34,8 +34,8 @@ const QueryMyLists = gql`
 `;
 
 const QueryMyList = gql`
-  query QueryMyList {
-    myList(id:"1") {
+  query QueryMyList($id: String!) {
+    myList(id: $id) {
       id
       name
       items {
@@ -70,11 +70,12 @@ export class MyListService {
     return result;
   }
 
-  getMyList(id: string): ApolloQueryObservable<MyList[]> {
-    console.log('myList.service: getMyList id ' + id);
-
+  getMyList(myListId: string): ApolloQueryObservable<MyList[]> {
     var result = this.apollo.watchQuery({
-      query: QueryMyList
+      query: QueryMyList,
+      variables: {
+        id: myListId
+      }
     });
     return result;
   }
