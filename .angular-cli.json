@@ -2,7 +2,7 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
     "version": "1.0.0",
-    "name": "iF-UI"
+    "name": "listPlusUI"
   },
   "apps": [
     {
@@ -17,6 +17,9 @@
       "styles": [
         "assets/bootstrap-3-3-7/css/bootstrap.min.css",
         "styles.css"
+      ],
+      "scripts": [
+        "app/components/myList-detail.page.js"
       ],
       "environmentSource": "environment.ts"
     }

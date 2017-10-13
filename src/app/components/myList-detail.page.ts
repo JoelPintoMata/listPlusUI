@@ -11,7 +11,10 @@ import { ApolloQueryObservable } from 'apollo-angular';
 
 @Component({
   selector: 'if-myList-detail',
-  templateUrl: './myList-detail.page.html'
+  templateUrl: './myList-detail.page.html',
+  styleUrls: [
+      './myList-detail.page.css'
+  ]
 })
 
 export class MyListDetailComponent implements OnInit {
