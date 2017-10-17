@@ -9,12 +9,15 @@ import { MyList, Item, MyListService } from '../services/myList.service';
 
 import { ApolloQueryObservable } from 'apollo-angular';
 
+import { Pipe } from "angular/core";
+
 @Component({
   selector: 'if-myList-detail',
   templateUrl: './myList-detail.page.html',
   styleUrls: [
       './myList-detail.page.css'
-  ]
+  ],
+  pipes: [ OrderByPipe ]
 })
 
 export class MyListDetailComponent implements OnInit {

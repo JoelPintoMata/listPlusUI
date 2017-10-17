@@ -2,6 +2,7 @@
 <!-- as in https://bootsnipp.com/snippets/PbOjm -->
 <!-- as in https://bootsnipp.com/snippets/dqb9 -->
 
+<!-- TODO check http://www.advancesharp.com/blog/1211/angular-2-search-and-sort-with-ngfor-repeater-with-example -->
 <h2>List Details</h2>
 <div ng-controller="MainCtrl as ctrl">
   <form [formGroup]="myListForm" (ngSubmit)="onSubmit()" novalidate>
@@ -24,11 +25,13 @@
             <th>#</th>
             <th>Name</th>
             <th>Quantity</th>
-            <th>Order</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let item of myListForm.controls.items.controls; let i = index">
+          <tr *ngFor="let item of myListForm.controls.items.controls | orderby : ['order']; let i = index">
+            <td style="display: none;" formGroupName="{{i}}">
+              <input type="hidden" class="form-control" formControlName="order">
+            </td>
             <td formGroupName="{{i}}" class="form-group col-sm-3">
               <input class="form-control" formControlName="id">
             </td>
@@ -37,21 +40,8 @@
             </td>
             <td formGroupName="{{i}}" class="form-group col-sm-2">
               <div class="input-group">
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-                        <span class="glyphicon glyphicon-minus"></span>
-                    </button>
-                </span>
-                <input type="text" class="form-control" formControlName="quantity">
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                </span>
+                <input type="number" class="form-control" formControlName="quantity">
               </div>
-            </td>
-            <td formGroupName="{{i}}" class="form-group col-sm-3">
-              <input class="form-control" formControlName="order">
             </td>
           </tr>
           </tbody>
