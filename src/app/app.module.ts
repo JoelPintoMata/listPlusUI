@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
+
 import { MyListDetailComponent } from './components/myList-detail.page';
 import { UserDetailComponent } from './components/user-detail.page';
 import { MyListListComponent } from './components/myList-list.page';

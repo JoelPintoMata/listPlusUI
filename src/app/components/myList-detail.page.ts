@@ -9,18 +9,24 @@ import { MyList, Item, MyListService } from '../services/myList.service';
 
 import { ApolloQueryObservable } from 'apollo-angular';
 
-import { Pipe } from "angular/core";
+import { Pipe } from '@angular/core';
 
 @Component({
   selector: 'if-myList-detail',
   templateUrl: './myList-detail.page.html',
   styleUrls: [
       './myList-detail.page.css'
-  ],
-  pipes: [ OrderByPipe ]
+  ]
 })
 
 export class MyListDetailComponent implements OnInit {
+  private _lipsum: any;
+  private _start: DateTime;
+  private _end: DateTime;
+  private _isSorting: bool = false;
+
+  @Input() options: CustomTableOptions;
+
   isNew = false;
   feedback = '';
   myList: MyList;
@@ -135,5 +141,69 @@ export class MyListDetailComponent implements OnInit {
   revert() {
     this.setFormData(this.myList);
     this.feedback = '';
+  }
+
+  sortHeaderClick(headerName: string) {
+    if (headerName) {
+      if (this.options.config.sortBy === headerName) {
+        this.options.config.sortDirection = this.options.config.sortDirection === 'asc' ? 'desc' : 'asc';
+      }
+      this.options.config.sortBy = headerName;
+      // Get the matching column
+      var column: CustomTableColumnDefinition = this.options.columns.filter((column) => column.value === this.options.config.sortBy)[0];
+      var isNumeric: bool = (column.filter && column.filter.indexOf("currency") != -1) || (column.isNumeric === true);
+      this.sort(this.filteredData, this.options.config.sortBy, this.options.config.sortDirection, isNumeric);
+    }
+  }
+
+  isSorting(name: string) {
+    return this.options.config.sortBy !== name && name !== '';
+  };
+
+  isSortAsc(name: string) {
+    console.log('isSortASc ' + name)
+    var isSortAsc: bool = this.options.config.sortBy === name && this.options.config.sortDirection === 'asc';
+    return isSortAsc;
+  };
+
+  isSortDesc(name: string) {
+    var isSortDesc: bool = this.options.config.sortBy === name && this.options.config.sortDirection === 'desc';
+    return isSortDesc;
+  };
+
+  private sort(array: Array<any>, fieldName: string, direction: string, isNumeric: bool)
+  {
+    var sortFunc = function (field, rev, primer) {
+        // Return the required a,b function
+        return function (a, b) {
+            // Reset a, b to the field
+            a = primer(pathValue(a, field)), b = primer(pathValue(b, field));
+            // Do actual sorting, reverse as needed
+            return ((a < b) ? -1 : ((a > b) ? 1 : 0)) * (rev ? -1 : 1);
+        }
+    };
+
+    // Have to handle deep paths
+    var pathValue = function (obj, path) {
+        for (var i = 0, path = path.split('.'), len = path.length; i < len; i++) {
+            obj = obj[path[i]];
+        };
+        return obj;
+    };
+
+    var primer = isNumeric ?
+        function (a) {
+            var retValue = parseFloat(String(a).replace(/[^0-9.-]+/g, ''));
+            return isNaN(retValue) ? 0.0 : retValue;
+        } :
+        function (a) { return String(a).toUpperCase(); };
+
+    this._isSorting = true;
+    this._start = new Date().getTime();
+    array.sort(sortFunc(fieldName, direction === 'desc', primer));
+    this._end = new Date().getTime();
+    var time = this._end - this._start;
+    console.log('Sort time: ' + time);
+    this._isSorting = false;
   }
 }

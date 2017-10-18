@@ -1,8 +1,8 @@
 
-<!-- as in https://bootsnipp.com/snippets/PbOjm -->
-<!-- as in https://bootsnipp.com/snippets/dqb9 -->
+<!-- https://long2know.com/2017/04/angular-custom-table-component-sorting/ -->
 
 <!-- TODO check http://www.advancesharp.com/blog/1211/angular-2-search-and-sort-with-ngfor-repeater-with-example -->
+
 <h2>List Details</h2>
 <div ng-controller="MainCtrl as ctrl">
   <form [formGroup]="myListForm" (ngSubmit)="onSubmit()" novalidate>
@@ -19,31 +19,35 @@
     <label>Items</label>
     <div class="row">
       <div class="table-responsive col-md-12">
-        <table formArrayName="items" class="grid table table-bordered table-sortable">
+        <table formArrayName="items" class="table-striped table-hover custom-table">
           <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Quantity</th>
-          </tr>
+            <tr>
+              <th>#</th>
+              <th (click)="sortHeaderClick(name)" [ngClass]="{ 'sorting': isSorting(name), 'sorting_asc': isSortAsc(name), 'sorting_desc': isSortDesc(name) }">
+                <span [innerHTML]="Name"></span>
+              </th>
+              <th (click)="sortHeaderClick(quantity)" [ngClass]="{ 'sorting': isSorting(quantity), 'sorting_asc': isSortAsc(quantity), 'sorting_desc': isSortDesc(quantity) }">
+                <span [innerHTML]="Quantity"></span>
+              </th>
+            </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let item of myListForm.controls.items.controls | orderby : ['order']; let i = index">
-            <td style="display: none;" formGroupName="{{i}}">
-              <input type="hidden" class="form-control" formControlName="order">
-            </td>
-            <td formGroupName="{{i}}" class="form-group col-sm-3">
-              <input class="form-control" formControlName="id">
-            </td>
-            <td formGroupName="{{i}}" class="form-group col-sm-3">
-              <input class="form-control" formControlName="name">
-            </td>
-            <td formGroupName="{{i}}" class="form-group col-sm-2">
-              <div class="input-group">
-                <input type="number" class="form-control" formControlName="quantity">
-              </div>
-            </td>
-          </tr>
+            <tr *ngFor="let row of filteredData">
+              <td style="display: none;" formGroupName="{{i}}">
+                <input type="hidden" class="form-control" formControlName="order">
+              </td>
+              <td formGroupName="{{i}}" class="form-group col-sm-3">
+                <input class="form-control" formControlName="id">
+              </td>
+              <td formGroupName="{{i}}" class="form-group col-sm-3">
+                <input class="form-control" formControlName="name">
+              </td>
+              <td formGroupName="{{i}}" class="form-group col-sm-2">
+                <div class="input-group">
+                  <input type="number" class="form-control" formControlName="quantity">
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
