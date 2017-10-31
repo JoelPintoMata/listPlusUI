@@ -25,8 +25,14 @@ import { ApolloClient, createNetworkInterface } from 'apollo-client';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
+import { DataTableModule } from 'angular-4-data-table';
+import { DataTableDemo3 } from './components/data-table-demo3';
 
 const appRoutes: Routes = [
+  {
+    path: 'myList/data-table-demo3',
+    component: DataTableDemo3
+  },
   {
     path: 'myList/:id',
     component: MyListDetailComponent
@@ -77,9 +83,10 @@ export function provideClient(): ApolloClient {
     HttpModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
-    ApolloModule.forRoot(provideClient)
+    ApolloModule.forRoot(provideClient),
+    DataTableModule
   ],
-  declarations: [AppComponent, UserDetailComponent, UserListComponent, MyListDetailComponent, MyListListComponent, CheckboxListComponent],
+  declarations: [AppComponent, UserDetailComponent, UserListComponent, MyListDetailComponent, MyListListComponent, CheckboxListComponent, DataTableDemo3],
   providers: [UserService, MyListService, RolesResolverService],
   bootstrap: [AppComponent]
 })

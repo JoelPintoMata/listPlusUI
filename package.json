@@ -29,6 +29,7 @@
     "@angular/router": "^4.3.0",
     "@ngrx/core": "^1.2.0",
     "@ngx-translate/core": "^6.0.1",
+    "angular-4-data-table": "^0.2.3",
     "apollo-angular": "^0.13.0",
     "apollo-client": "^1.0.1",
     "core-js": "^2.4.1",

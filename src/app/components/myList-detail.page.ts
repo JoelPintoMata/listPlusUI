@@ -11,6 +11,44 @@ import { ApolloQueryObservable } from 'apollo-angular';
 
 import { Pipe } from '@angular/core';
 
+export class CustomTableColumnDefinition {
+  public name: string = '';
+  public value: string = '';
+  public binding: string = '';
+  public filter: string = '';
+  public computedClass: any;
+  public isNumeric: boolean = false;
+  public isComputed: boolean = false;
+  public isAnchor: boolean = false;
+  public srefBinding: string = '';
+}
+
+export class CustomTableConfig {
+  public sortBy: string = '';
+  public sortDirection: string = 'desc';
+  public pageSize: number = 100;
+  public pageNumber: number = 1;
+  public totalCount: number = 0;
+  public totalPages: number = 0;
+  public maxSize: number = 10;
+  public showSelectCheckbox: boolean = true;
+  public showSelectAll: boolean = true;
+  public showSort: boolean = true;
+  public clientSort: boolean = false;
+  public clientPaging: boolean = false;
+  public stickyHeader: boolean = true;
+  public stickyHeaderOffset: number = 0;
+  public stickyContainer: string = '';
+}
+
+export class CustomTableOptions {
+  public records : Observable<Array<any>>;
+  public columns: Array<CustomTableColumnDefinition>;
+  public rowDefns: Array<any>;
+  public config: CustomTableConfig;
+  public callbacks: any;
+}
+
 @Component({
   selector: 'if-myList-detail',
   templateUrl: './myList-detail.page.html',
@@ -20,12 +58,14 @@ import { Pipe } from '@angular/core';
 })
 
 export class MyListDetailComponent implements OnInit {
-  private _lipsum: any;
-  private _start: DateTime;
-  private _end: DateTime;
-  private _isSorting: bool = false;
 
-  @Input() options: CustomTableOptions;
+  public filteredData: Array<any>;
+  public filteredDataObservable: Observable<Array<any>>;
+
+  private _lipsum: any;
+  private _isSorting: boolean = false;
+
+  options: CustomTableOptions;
 
   isNew = false;
   feedback = '';
@@ -151,7 +191,7 @@ export class MyListDetailComponent implements OnInit {
       this.options.config.sortBy = headerName;
       // Get the matching column
       var column: CustomTableColumnDefinition = this.options.columns.filter((column) => column.value === this.options.config.sortBy)[0];
-      var isNumeric: bool = (column.filter && column.filter.indexOf("currency") != -1) || (column.isNumeric === true);
+      var isNumeric: boolean = (column.filter && column.filter.indexOf("quantity") != -1) || (column.isNumeric === true);
       this.sort(this.filteredData, this.options.config.sortBy, this.options.config.sortDirection, isNumeric);
     }
   }
@@ -162,16 +202,16 @@ export class MyListDetailComponent implements OnInit {
 
   isSortAsc(name: string) {
     console.log('isSortASc ' + name)
-    var isSortAsc: bool = this.options.config.sortBy === name && this.options.config.sortDirection === 'asc';
+    var isSortAsc: boolean = this.options.config.sortBy === name && this.options.config.sortDirection === 'asc';
     return isSortAsc;
   };
 
   isSortDesc(name: string) {
-    var isSortDesc: bool = this.options.config.sortBy === name && this.options.config.sortDirection === 'desc';
+    var isSortDesc: boolean = this.options.config.sortBy === name && this.options.config.sortDirection === 'desc';
     return isSortDesc;
   };
 
-  private sort(array: Array<any>, fieldName: string, direction: string, isNumeric: bool)
+  private sort(array: Array<any>, fieldName: string, direction: string, isNumeric: boolean)
   {
     var sortFunc = function (field, rev, primer) {
         // Return the required a,b function
@@ -199,11 +239,7 @@ export class MyListDetailComponent implements OnInit {
         function (a) { return String(a).toUpperCase(); };
 
     this._isSorting = true;
-    this._start = new Date().getTime();
     array.sort(sortFunc(fieldName, direction === 'desc', primer));
-    this._end = new Date().getTime();
-    var time = this._end - this._start;
-    console.log('Sort time: ' + time);
     this._isSorting = false;
   }
 }
