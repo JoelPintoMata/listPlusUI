@@ -32,12 +32,10 @@ export class DataTableDemo3 {
     @ViewChild(DataTable) filmsTable;
 
     constructor(private myListService: MyListService, private route: ActivatedRoute, private router: Router) {
+        this.filmResource.count().then(count => this.filmCount = count);
     }
 
     reloadFilms(params) {
-        this.films[0] = null;
-        this.films = null;
-
         console.log("DataTableDemo3: reloadFilms");
         this.route.params
           .switchMap((params: Params) => {
@@ -51,16 +49,12 @@ export class DataTableDemo3 {
           .subscribe(({data}) => {
             console.log("DataTableDemo3: reloadFilms.subscribe");
             var obj = JSON.parse(JSON.stringify(data));
-            console.log("DataTableDemo3: reloadFilms, obj.myList[0].id : " + obj.myList[0].id);
-            console.log("DataTableDemo3: reloadFilms, obj.myList[0].name : " + obj.myList[0].name);
-            console.log("DataTableDemo3: reloadFilms, obj.myList[0].items[0].id : " + obj.myList[0].items[0].id);
-            console.log("DataTableDemo3: reloadFilms, obj.myList[0].items[0].name : " + obj.myList[0].items[0].name);
-            console.log("DataTableDemo3: reloadFilms, obj.myList[0].items[1].id : " + obj.myList[0].items[1].id);
-            console.log("DataTableDemo3: reloadFilms, obj.myList[0].items[1].name : " + obj.myList[0].items[1].name);
 
-            var dataTableDemo3Data = this.filmResource.query(params).then(films => this.films = films);
-            console.log("DataTableDemo3: reloadFilms, dataTableDemo3Data : " + dataTableDemo3Data);
-            console.log("DataTableDemo3: reloadFilms, dataTableDemo3Data[0] : " + dataTableDemo3Data[0]);
+            obj.myList[0].items.map(item => {
+              console.log("DataTableDemo3: reloadFilms, item : " + item);
+              console.log("DataTableDemo3: reloadFilms, item.id : " + item.id);
+              this.films = [[item.id, item.id, item.id, item.id, item.name]];
+            });
           });
     }
 
