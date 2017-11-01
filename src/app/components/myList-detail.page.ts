@@ -9,8 +9,6 @@ import { MyList, Item, MyListService } from '../services/myList.service';
 
 import { ApolloQueryObservable } from 'apollo-angular';
 
-import { Pipe } from '@angular/core';
-
 @Component({
   selector: 'if-myList-detail',
   templateUrl: './myList-detail.page.html',
@@ -20,12 +18,6 @@ import { Pipe } from '@angular/core';
 })
 
 export class MyListDetailComponent implements OnInit {
-
-  public filteredData: Array<any>;
-  public filteredDataObservable: Observable<Array<any>>;
-
-  private _lipsum: any;
-  private _isSorting: boolean = false;
 
   isNew = false;
   feedback = '';

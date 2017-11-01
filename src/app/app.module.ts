@@ -30,7 +30,7 @@ import { DataTableDemo3 } from './components/data-table-demo3';
 
 const appRoutes: Routes = [
   {
-    path: 'myList/data-table-demo3',
+    path: 'myList/data-table-demo3/:id',
     component: DataTableDemo3
   },
   {
