@@ -50,11 +50,13 @@ export class DataTableDemo3 {
             console.log("DataTableDemo3: reloadFilms.subscribe");
             var obj = JSON.parse(JSON.stringify(data));
 
-            //this.filmResource.query(params).then(films => this.films = films);
-
-            obj.myList[0].items.map(item => {
-              this.films = [[item.id, item.id, item.id, item.id, item.name]];
+            this.filmCount = obj.myList[0].items.length;
+            var itemsArray = [];
+            var items = obj.myList[0].items.map(item => {
+              itemsArray.push({"id": item.id, "name": item.name, "order": item.order, "quantity": item.quantity});
+              return itemsArray;
             });
+            this.films = items[0];
           });
     }
 

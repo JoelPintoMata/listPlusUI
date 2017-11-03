@@ -18,31 +18,28 @@
               [selectOnRowClick]="true"
   >
     <ng-template #dataTableExpand let-item="item">
-      <div [textContent]="item.description" style="padding: 5px; color: gray"></div>
+      <div [textContent]="item.name" style="padding: 5px; color: gray"></div>
     </ng-template>
     <data-table-column
-      [property]="'title'"
-      [header]="'Title'"
+      [property]="'id'"
+      [header]="'#'"
       [sortable]="true">
     </data-table-column>
     <data-table-column
-      [property]="'year'"
-      [header]="'Release year'"
+      [property]="'name'"
+      [header]="'Name'"
       [sortable]="true">
     </data-table-column>
     <data-table-column
-      [property]="'rating'"
-      [header]="'Rating'"
+      [property]="'order'"
+      [header]="'Order'"
       [sortable]="true"
       [cellColors]="cellColor">
     </data-table-column>
     <data-table-column
-      [property]="'director'"
-      [header]="'Director'">
-    </data-table-column>
-    <data-table-column
-      [property]="'name'"
-      [header]="'Name'">
+      [property]="'quantity'"
+      [header]="'Quantity'">
+      [sortable]="true"
     </data-table-column>
   </data-table>
   <div style="margin-top: 10px">
