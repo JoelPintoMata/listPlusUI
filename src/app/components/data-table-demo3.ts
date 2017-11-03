@@ -22,42 +22,18 @@ import 'rxjs/add/observable/of';
 
 export class DataTableDemo3 {
 
-    isNew = false;
-    myList: MyList;
-
     filmResource = new DataTableResource(films);
     films = [];
     filmCount = 0;
 
     @ViewChild(DataTable) filmsTable;
 
-    constructor(private myListService: MyListService, private route: ActivatedRoute, private router: Router) {
+    constructor() {
         this.filmResource.count().then(count => this.filmCount = count);
     }
 
     reloadFilms(params) {
-        console.log("DataTableDemo3: reloadFilms");
-        this.route.params
-          .switchMap((params: Params) => {
-            this.isNew = params['id'] === 'new';
-            if (this.isNew) {
-              return null;
-            } else {
-              return this.myListService.getMyList(params['id']);
-            }
-          })
-          .subscribe(({data}) => {
-            console.log("DataTableDemo3: reloadFilms.subscribe");
-            var obj = JSON.parse(JSON.stringify(data));
-
-            this.filmCount = obj.myList[0].items.length;
-            var itemsArray = [];
-            var items = obj.myList[0].items.map(item => {
-              itemsArray.push({"id": item.id, "name": item.name, "order": item.order, "quantity": item.quantity});
-              return itemsArray;
-            });
-            this.films = items[0];
-          });
+        this.filmResource.query(params).then(films => this.films = films);
     }
 
     cellColor(car) {

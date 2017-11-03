@@ -17,29 +17,28 @@
               [indexColumnHeader]="'#'"
               [selectOnRowClick]="true"
   >
-    <ng-template #dataTableExpand let-item="item">
-      <div [textContent]="item.name" style="padding: 5px; color: gray"></div>
-    </ng-template>
+    <template #dataTableExpand let-item="item">
+      <div [textContent]="item.description" style="padding: 5px; color: gray"></div>
+    </template>
     <data-table-column
-      [property]="'id'"
-      [header]="'#'"
+      [property]="'title'"
+      [header]="'Title'"
       [sortable]="true">
     </data-table-column>
     <data-table-column
-      [property]="'name'"
-      [header]="'Name'"
+      [property]="'year'"
+      [header]="'Release year'"
       [sortable]="true">
     </data-table-column>
     <data-table-column
-      [property]="'order'"
-      [header]="'Order'"
+      [property]="'rating'"
+      [header]="'Rating'"
       [sortable]="true"
       [cellColors]="cellColor">
     </data-table-column>
     <data-table-column
-      [property]="'quantity'"
-      [header]="'Quantity'">
-      [sortable]="true"
+      [property]="'director'"
+      [header]="'Director'">
     </data-table-column>
   </data-table>
   <div style="margin-top: 10px">

@@ -1,60 +1,52 @@
-<!-- as in https://bootsnipp.com/snippets/PbOjm -->
-<!-- as in https://bootsnipp.com/snippets/dqb9 -->
+<div style="margin: auto; max-width: 1000px; margin-top:50px">
+  <data-table id="films-grid"
+              headerTitle="Films"
+              [items]="films"
+              [itemCount]="filmCount"
+              (reload)="reloadFilms($event)"
 
-<h2>List Details</h2>
-<div ng-controller="MainCtrl as ctrl">
-  <form [formGroup]="myListForm" (ngSubmit)="onSubmit()" novalidate>
-    <label>Details</label>
-    <div class="row">
-      <div class="form-group col-sm-3">
-        <input class="form-control" formControlName="id">
-      </div>
-      <div class="form-group col-sm-3">
-        <input class="form-control" formControlName="name">
-      </div>
-    </div>
+              [limit]="8"
+              [sortBy]="'rating'"
+              [sortAsc]="false"
 
-    <label>Items</label>
-    <div class="row">
-      <div class="table-responsive col-md-12">
-        <table formArrayName="items" class="grid table table-bordered table-sortable">
-          <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Quantity</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let item of myListForm.controls.items.controls; let i = index">
-            <td formGroupName="{{i}}" class="form-group col-sm-3">
-              <input class="form-control" formControlName="id">
-            </td>
-            <td formGroupName="{{i}}" class="form-group col-sm-3">
-              <input class="form-control" formControlName="name">
-            </td>
-            <td formGroupName="{{i}}" class="form-group col-sm-3">
-              <input type="text" readonly class="form-control" formControlName="quantity">
-              <div class="ui-group-buttons">
-                <button type="button" class="btn btn-primary btn-sm">Small button</button>
-                <div class="or or-sm"></div>
-                <button type="button" class="btn btn-success btn-sm">Small button</button>
-              </div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+              [selectColumn]="true"
+              [multiSelect]="false"
+              [substituteRows]="false"
+              [expandableRows]="true"
+              [translations]="translations"
+              [indexColumnHeader]="'#'"
+              [selectOnRowClick]="true"
+  >
+    <ng-template #dataTableExpand let-item="item">
+      <div [textContent]="item.name" style="padding: 5px; color: gray"></div>
+    </ng-template>
 
-    <nav style="margin-bottom: 30px">
-      <button type="button" class="btn btn-primary" (click)="addRowItem()">Add row</button>
-      <button type="submit" [disabled]="myListForm.pristine" class="btn btn-success">{{isNew? 'Add' : 'Update'}}
-      </button>
-      <button *ngIf="!myListForm.pristine" type="reset" (click)="revert()" class="btn btn-primary">Revert</button>
-      <a *ngIf="myListForm.pristine" routerLink="/myLists">
-        <button type="button" class="btn btn-primary">Back</button>
-      </a>
-    </nav>
-  </form>
+    <data-table-column
+      [property]="'id'"
+      [header]="'#'"
+      [sortable]="true">
+    </data-table-column>
+    <data-table-column
+      [property]="'name'"
+      [header]="'Name'"
+      [sortable]="true">
+    </data-table-column>
+    <data-table-column
+      [property]="'order'"
+      [header]="'Order'"
+      [sortable]="true"
+      [cellColors]="cellColor">
+    </data-table-column>
+    <data-table-column
+      [property]="'quantity'"
+      [header]="'Quantity'"
+      [sortable]="true">
+    </data-table-column>
+  </data-table>
+
+  <div style="margin-top: 10px">
+    <b>Selected:</b>
+    <span *ngIf="filmsTable.selectedRow == null"><i>No item selected</i></span>
+    <span [textContent]="filmsTable.selectedRow && filmsTable.selectedRow.item.title"></span>
+  </div>
 </div>

@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ViewChild, OnInit } from '@angular/core';
+
 import { ActivatedRoute, Params, Router } from '@angular/router';
+
+import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-data-table';
+import { films } from './data-table-demo3-data';
+
+import { ApolloQueryObservable } from 'apollo-angular';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/of';
 
 import { MyList, Item, MyListService } from '../services/myList.service';
 
-import { ApolloQueryObservable } from 'apollo-angular';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/of';
+
 
 @Component({
   selector: 'if-myList-detail',
@@ -17,121 +22,56 @@ import { ApolloQueryObservable } from 'apollo-angular';
   ]
 })
 
-export class MyListDetailComponent implements OnInit {
+export class MyListDetailComponent {
 
-  isNew = false;
-  feedback = '';
-  myList: MyList;
-  myListForm: FormGroup;
+    isNew = false;
+    myList: MyList;
 
-  constructor(private fb: FormBuilder, private myListService: MyListService, private route: ActivatedRoute, private router: Router) {
-    console.log('myList-detail: constructor');
-    this.myListForm = this.fb.group({
-      id: [''],
-      name: [''],
-      items: this.fb.array([
-        this.fb.group({
-          id: [''],
-          name: [''],
-          quantity: [''],
-        })
-      ])
-    });
-  }
+    filmResource = new DataTableResource(films);
+    films = [];
+    filmCount = 0;
 
-  ngOnInit() {
-    console.log('myList-detail: ngOnInit');
-    this.route.params
-      .switchMap((params: Params) => {
-        this.isNew = params['id'] === 'new';
-        if (this.isNew) {
-          return null;
-        } else {
-          return this.myListService.getMyList(params['id']);
-        }
-      })
-      .subscribe(({data}) => {
-        var obj = JSON.parse(JSON.stringify(data));
-        this.setFormData(obj.myList[0]);
-      });
-  }
+    @ViewChild(DataTable) filmsTable;
 
-  getMyList(id: string) {
-    return this.myListService.getMyList(id).subscribe(({data}) => {
-      var obj = JSON.parse(JSON.stringify(data));
-      this.myList = obj.myList.data[0];
-    });
-  }
-
-  addRowItem() {
-    const control = <FormArray>this.myListForm.controls['items'];
-    control.push(this.fb.group(['', '', '', '']));
-  };
-
-  get items(): FormArray {
-    return this.myListForm.get('items') as FormArray;
-  };
-
-  setItems(items: Item[]) {
-    let itemFGs = items.map(item => {
-      return this.fb.group(item);
-    });
-    this.myListForm.setControl('items', this.fb.array(itemFGs));
-  }
-
-  setFormData(myList: MyList) {
-    this.myList = myList;
-    this.myListForm.reset(myList);
-    this.setItems(this.myList.items);
-  }
-
-  onSubmit() {
-    this.myListForm.disable();
-    this.feedback = '';
-    this.myListService.saveMyList(this.myListForm.value)
-      .subscribe(myList => {
-        if (this.isNew) {
-          this.router.navigate(['/myLists', myList.id]);
-        } else {
-          this.setFormData(myList);
-        }
-        this.myListForm.enable();
-        this.feedback = 'SUCCESS';
-      }, response => {
-        this.myListForm.enable();
-        if (response.status == 400) {
-          this.feedback = 'INVALID';
-          this.setValidationErrors(response.json());
-        } else {
-          this.feedback = 'ERROR';
-        }
-      });
-  }
-
-  setValidationErrors(errors: any) {
-    if (errors) {
-      for (let key in this.myListForm.controls) {
-        if (errors[key]) {
-          this.myListForm.get(key).setErrors({'server_validation': errors[key][0]});
-        }
-      }
+    constructor(private myListService: MyListService, private route: ActivatedRoute, private router: Router) {
+        this.filmResource.count().then(count => this.filmCount = count);
     }
-  }
 
-  getError(key: string) {
-    const control = this.myListForm.get(key);
-    if(control.errors) {
-      if(control.errors.server_validation) {
-        return control.errors.server_validation;
-      } else if(control.touched && control.errors.required) {
-        return 'This field is required';
-      }
+    reloadFilms(params) {
+        this.route.params
+          .switchMap((params: Params) => {
+            this.isNew = params['id'] === 'new';
+            if (this.isNew) {
+              return null;
+            } else {
+              return this.myListService.getMyList(params['id']);
+            }
+          })
+          .subscribe(({data}) => {
+            var obj = JSON.parse(JSON.stringify(data));
+
+            this.filmCount = obj.myList[0].items.length;
+            var itemsArray = [];
+            var items = obj.myList[0].items.map(item => {
+              itemsArray.push({"id": item.id, "name": item.name, "order": item.order, "quantity": item.quantity});
+              return itemsArray;
+            });
+            this.films = items[0];
+          });
     }
-    return null;
-  }
 
-  revert() {
-    this.setFormData(this.myList);
-    this.feedback = '';
-  }
+    cellColor(car) {
+        //return 'rgb(255, 255,' + (155 + Math.floor(100 - ((car.rating - 8.7)/1.3)*100)) + ')';
+        return 'rgb(255, 255, 255)';
+    };
+
+    // special params:
+
+    translations = <DataTableTranslations>{
+        indexColumn: 'Index column',
+        expandColumn: 'Expand column',
+        selectColumn: 'Select column',
+        paginationLimit: 'Max results',
+        paginationRange: 'Result range'
+    };
 }
