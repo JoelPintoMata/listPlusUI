@@ -6,12 +6,18 @@
 $ npm start
 
 ### Endpoints
-Endpoint                                          Example                           Description
-http://<server_name>:<port>/myList/<my_list_id>   http://localhost:4200/myList/1    My list details
 
-### Componets
+Endpoint | Example | Description
+-------- | ------- | -----------
+http://<server_name>:<port>/myLists | http://localhost:4200/myLists | My lists available
+http://<server_name>:<port>/myList/<my_list_id> | http://localhost:4200/myList/1 | My list details
+
+### External components
 
 #### Sortable tables
 
-[https://github.com/MIt9/angular-4-data-table-demo]https://github.com/MIt9/angular-4-data-table-demo
-npm install angular-4-data-table --save
+[https://github.com/MIt9/angular-4-data-table-demo](angular-4-data-table-demo)
+
+```
+$ npm install angular-4-data-table --save
+```
