@@ -37,14 +37,14 @@ export class MyListDetailComponent {
         this.filmResource.count().then(count => this.filmCount = count);
     }
 
-    reloadFilms(params) {
+    reloadFilms(event) {
         this.route.params
           .switchMap((params: Params) => {
             this.isNew = params['id'] === 'new';
             if (this.isNew) {
               return null;
             } else {
-              return this.myListService.getMyList(params['id']);
+              return this.myListService.getMyList(params['id'], event['sortBy']);
             }
           })
           .subscribe(({data}) => {
