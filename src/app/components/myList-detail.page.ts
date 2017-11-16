@@ -40,14 +40,15 @@ export class MyListDetailComponent {
     reloadFilms(event) {
         this.route.params
           .switchMap((params: Params) => {
-            this.isNew = params['id'] === 'new';
-            if (this.isNew) {
-              return null;
-            } else {
-              return this.myListService.getMyList(params['id'], event['sortBy']);
-            }
+//            this.isNew = params['id'] === 'new';
+//            if (this.isNew) {
+//              return null;
+//            } else {
+              return this.myListService.getMyList(params['id'], event['sortBy'], event['sortAsc']);
+//            }
           })
           .subscribe(({data}) => {
+            this.films = null;
             var obj = JSON.parse(JSON.stringify(data));
 
             this.filmCount = obj.myList[0].items.length;

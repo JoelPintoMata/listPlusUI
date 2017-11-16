@@ -34,8 +34,8 @@ const QueryMyLists = gql`
 `;
 
 const QueryMyList = gql`
-  query QueryMyList($id: String!, $orderBy: String) {
-    myList(id: $id, orderBy: $orderBy) {
+  query QueryMyList($id: String!, $sortBy: String, $sortAsc: Boolean) {
+    myList(id: $id, sortBy: $sortBy, sortAsc: $sortAsc) {
       id
       name
       items {
@@ -70,12 +70,13 @@ export class MyListService {
     return result;
   }
 
-  getMyList(myListId: string, myListItemsOrderBy: string): ApolloQueryObservable<MyList[]> {
+  getMyList(myListId: string, myListItemsOrderBy: string, myListItemsSortAsc: boolean): ApolloQueryObservable<MyList[]> {
     var result = this.apollo.watchQuery({
       query: QueryMyList,
       variables: {
         id: myListId,
-        orderBy: myListItemsOrderBy
+        sortBy: myListItemsOrderBy,
+        sortAsc: myListItemsSortAsc
       }
     });
     return result;
