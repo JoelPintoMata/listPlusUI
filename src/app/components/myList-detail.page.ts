@@ -48,16 +48,13 @@ export class MyListDetailComponent {
 //            }
           })
           .subscribe(({data}) => {
-            this.films = null;
             var obj = JSON.parse(JSON.stringify(data));
-
-            this.filmCount = obj.myList[0].items.length;
             var itemsArray = [];
-            var items = obj.myList[0].items.map(item => {
+            obj.myList[0].items.map(item => {
               itemsArray.push({"id": item.id, "name": item.name, "order": item.order, "quantity": item.quantity});
-              return itemsArray;
             });
-            this.films = items[0];
+            this.filmCount = itemsArray.length;
+            this.films = itemsArray;
           });
     }
 

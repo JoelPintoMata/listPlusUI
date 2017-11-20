@@ -62,8 +62,6 @@ export class MyListService {
   }
 
   getMyLists(): ApolloQueryObservable<MyList[]> {
-    console.log('myList.service: getMyLists');
-
     var result = this.apollo.watchQuery({
       query: QueryMyLists
     });
@@ -73,6 +71,8 @@ export class MyListService {
   getMyList(myListId: string, myListItemsOrderBy: string, myListItemsSortAsc: boolean): ApolloQueryObservable<MyList[]> {
     var result = this.apollo.watchQuery({
       query: QueryMyList,
+//      check https://www.apollographql.com/docs/react/basics/queries.html#graphql-query-options for other fetch options
+      fetchPolicy: 'network-only',
       variables: {
         id: myListId,
         sortBy: myListItemsOrderBy,
