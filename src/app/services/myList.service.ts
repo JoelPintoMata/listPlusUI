@@ -16,17 +16,10 @@ interface QueryResponse{
   loading
 }
 
-const QueryHeros = gql`
-  query QueryHeros {
-    hero {
-      id
-    }
-  }
-`;
-
 const QueryMyLists = gql`
   query QueryMyLists {
     myList {
+      _id
       id
       name
     }
@@ -36,6 +29,7 @@ const QueryMyLists = gql`
 const QueryMyList = gql`
   query QueryMyList($id: String!, $sortBy: String, $sortAsc: Boolean) {
     myList(id: $id, sortBy: $sortBy, sortAsc: $sortAsc) {
+      _id
       id
       name
       items {
@@ -44,6 +38,18 @@ const QueryMyList = gql`
         quantity
         order
       }
+    }
+  }
+`;
+
+const QueryItem = gql`
+  query QueryItem($_id: String!, $id_item: String!) {
+    item(_id: $_id, id_item: $id_item) {
+      _id
+      id
+      name
+      quantity
+      order
     }
   }
 `;
@@ -82,12 +88,32 @@ export class MyListService {
     return result;
   }
 
+  getItem(_id: string, id_item: string): ApolloQueryObservable<Item[]> {
+    var result = this.apollo.watchQuery({
+      query: QueryItem,
+      fetchPolicy: 'network-only',
+      variables: {
+        _id: _id,
+        id_item: id_item
+      }
+    });
+    return result;
+  }
+
   addMyList(myList: MyList): Observable<MyList> {
     return this.http.post(`${this.BASE_URL}/myListsa`, myList).map((res: Response) => <MyList>res.json());
   }
 
   updateMyList(myList: MyList): Observable<MyList> {
     return this.http.put(`${this.BASE_URL}/myListsb/${myList.id}`, myList).map((res: Response) => <MyList>res.json());
+  }
+
+  addItem(item: Item): Observable<Item> {
+    return this.http.post(`${this.BASE_URL}/itema`, item).map((res: Response) => <Item>res.json());
+  }
+
+  updateItem(item: Item): Observable<Item> {
+    return this.http.put(`${this.BASE_URL}/itemb/${item.id}`, item).map((res: Response) => <Item>res.json());
   }
 
   saveMyList(myList: MyList): Observable<MyList> {
@@ -97,9 +123,18 @@ export class MyListService {
       return this.addMyList(myList);
     }
   }
+
+  saveItem(item: Item): Observable<Item> {
+    if (item.id) {
+      return this.updateItem(item);
+    } else {
+      return this.addItem(item);
+    }
+  }
 }
 
 export class MyList {
+  _id: string;
   id: string;
   name: string;
   items: Item[];
@@ -112,8 +147,9 @@ export class MyList {
 }
 
 export class Item {
+  _id: string;
   id: string;
   name: string;
-  order?: string;
+  order: string;
   quantity?: string;
 }

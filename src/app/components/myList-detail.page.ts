@@ -51,7 +51,7 @@ export class MyListDetailComponent {
             var obj = JSON.parse(JSON.stringify(data));
             var itemsArray = [];
             obj.myList[0].items.map(item => {
-              itemsArray.push({"id": item.id, "name": item.name, "order": item.order, "quantity": item.quantity});
+              itemsArray.push({"_id": obj.myList[0]._id, "id": item.id, "name": item.name, "order": item.order, "quantity": item.quantity});
             });
             this.filmCount = itemsArray.length;
             this.films = itemsArray;

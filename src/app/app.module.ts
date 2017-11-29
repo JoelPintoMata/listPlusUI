@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 
+import { ItemDetailComponent } from './components/item-detail.page';
 import { MyListDetailComponent } from './components/myList-detail.page';
 import { UserDetailComponent } from './components/user-detail.page';
 import { MyListListComponent } from './components/myList-list.page';
@@ -32,6 +33,10 @@ const appRoutes: Routes = [
   {
     path: 'myList/data-table-demo3/:id',
     component: DataTableDemo3
+  },
+  {
+    path: '_id/:_id/item/:id',
+    component: ItemDetailComponent
   },
   {
     path: 'myList/:id',
@@ -86,7 +91,7 @@ export function provideClient(): ApolloClient {
     ApolloModule.forRoot(provideClient),
     DataTableModule
   ],
-  declarations: [AppComponent, UserDetailComponent, UserListComponent, MyListDetailComponent, MyListListComponent, CheckboxListComponent, DataTableDemo3],
+  declarations: [AppComponent, UserDetailComponent, UserListComponent, MyListDetailComponent, ItemDetailComponent, MyListListComponent, CheckboxListComponent, DataTableDemo3],
   providers: [UserService, MyListService, RolesResolverService],
   bootstrap: [AppComponent]
 })

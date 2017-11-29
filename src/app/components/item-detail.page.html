@@ -1,0 +1,14 @@
+<h2>User Details</h2>
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit()" novalidate>
+  <div class="row">
+    <div class="col-sm-8">
+
+      <div class="form-group">
+        <label class="center-block">Name: </label>
+        <input class="form-control" formControlName="name">
+      </div>
+
+    </div>
+  </div>
+</form>
+
