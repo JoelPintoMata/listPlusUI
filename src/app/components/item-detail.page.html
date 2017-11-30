@@ -1,14 +1,53 @@
 <h2>User Details</h2>
 <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" novalidate>
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-4">
 
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error has-feedback': getError('_id')}">
+        <label class="center-block">_ID: </label>
+        <input class="form-control" formControlName="_id">
+        <span class="error" *ngIf="getError('_id')">{{getError('_id')}}</span>
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error has-feedback': getError('id')}">
+        <label class="center-block">ID: </label>
+        <input class="form-control" formControlName="id">
+        <span class="error" *ngIf="getError('id')">{{getError('id')}}</span>
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error has-feedback': getError('name')}">
         <label class="center-block">Name: </label>
         <input class="form-control" formControlName="name">
+        <span class="error" *ngIf="getError('name')">{{getError('name')}}</span>
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error has-feedback': getError('quantity')}">
+        <label class="center-block">Quantity: </label>
+        <input class="form-control" formControlName="quantity">
+        <span class="error" *ngIf="getError('quantity')">{{getError('quantity')}}</span>
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error has-feedback': getError('order')}">
+        <label class="center-block">Order: </label>
+        <input class="form-control" formControlName="order">
+        <span class="error" *ngIf="getError('order')">{{getError('order')}}</span>
       </div>
 
     </div>
   </div>
-</form>
 
+  <div class="alert" [ngClass]="{'alert-success': feedback==='SUCCESS', 'alert-warning': feedback==='INVALID', 'alert-danger': feedback==='ERROR'}">
+    <span *ngIf="feedback==='SUCCESS'"><strong>Success!</strong> Data saved.</span>
+    <span *ngIf="feedback==='INVALID'"><strong>Validation error!</strong> Data validation failed.</span>
+    <span *ngIf="feedback==='ERROR'"><strong>Error!</strong> Unknown server error.</span>
+    &nbsp;
+  </div>
+
+  <nav style="margin-bottom: 30px">
+    <button type="submit" [disabled]="itemForm.pristine" class="btn btn-success">{{isNew? 'Add user' : 'Update'}}</button>
+    <button *ngIf="!itemForm.pristine" type="reset" (click)="revert()" class="btn btn-primary">Revert</button>
+    <a *ngIf="itemForm.pristine" routerLink="/users">
+      <button type="button" class="btn btn-primary">Back</button>
+    </a>
+  </nav>
+</form>

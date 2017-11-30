@@ -47,7 +47,7 @@ export class ItemDetailComponent implements OnInit {
 //        }
       })
       .subscribe(({data}) => {
-        var item = JSON.parse(JSON.stringify(data));
+        var item = JSON.parse(JSON.stringify(data))["item"];
         this.setFormData(item);
       });
   }
@@ -55,6 +55,7 @@ export class ItemDetailComponent implements OnInit {
   setFormData(item: Item) {
     this.item = item;
     this.itemForm.reset(item);
+    this.item = item;
   }
 
   onSubmit() {
