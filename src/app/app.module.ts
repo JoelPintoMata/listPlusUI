@@ -16,7 +16,6 @@ import { MyListService } from './services/myList.service';
 import { UserService } from './services/user.service';
 
 import { RolesResolverService } from './services/roles-resolver.service';
-import { CheckboxListComponent } from './components/checkbox-list.component';
 
 // TODO we just need the environment in order to get the default backend url
 import { environment } from '../environment';
@@ -65,8 +64,8 @@ const appRoutes: Routes = [
 ];
 
 const networkInterface = createNetworkInterface({
-  uri: 'http://vast-springs-18949.herokuapp.com/graphql',
-  // uri: 'http://localhost:8080/graphql',
+  // uri: 'http://vast-springs-18949.herokuapp.com/graphql',
+  uri: 'http://localhost:8080/graphql',
   // do we need this option to enable CORS?
   opts: {
     // Additional fetch options like `credentials` or `headers`
@@ -91,7 +90,7 @@ export function provideClient(): ApolloClient {
     ApolloModule.forRoot(provideClient),
     DataTableModule
   ],
-  declarations: [AppComponent, UserDetailComponent, UserListComponent, MyListDetailComponent, ItemDetailComponent, MyListListComponent, CheckboxListComponent, DataTableDemo3],
+  declarations: [AppComponent, UserDetailComponent, UserListComponent, MyListDetailComponent, ItemDetailComponent, MyListListComponent, DataTableDemo3],
   providers: [UserService, MyListService, RolesResolverService],
   bootstrap: [AppComponent]
 })

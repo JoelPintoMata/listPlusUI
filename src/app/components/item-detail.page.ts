@@ -62,11 +62,11 @@ export class ItemDetailComponent implements OnInit {
     this.itemForm.disable();
     this.feedback = '';
     this.myListService.saveItem(this.itemForm.value)
-      .subscribe(item => {
+      .subscribe(({data}) => {
         if (this.isNew) {
-          this.router.navigate(['/items', item.id]);
+          this.router.navigate(['/items', data.id]);
         } else {
-          this.setFormData(item);
+          this.setFormData(data);
         }
         this.itemForm.enable();
         this.feedback = 'SUCCESS';

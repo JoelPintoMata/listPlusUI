@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 
 import { Apollo } from 'apollo-angular';
 import { ApolloModule, ApolloQueryObservable } from 'apollo-angular';
-import { ApolloClient, createNetworkInterface } from 'apollo-client';
+import { ApolloClient, createNetworkInterface, ApolloQueryResult } from 'apollo-client';
 
 import gql from 'graphql-tag';
 
@@ -55,11 +55,12 @@ const QueryItem = gql`
 `;
 
 const UpdateItem = gql`
-  mutation UpdateItem($_id: String!, $id_item: String!) {
-    item(_id: $_id, id_item: $id_item) {
-      name: "<item_name>",
-      quantity: <item_quantity>,
-      order: <item_order>) {
+  mutation UpdateItem($_id: String!, $id: String!, $name: String!, $quantity: Int!, $order: Int!) {
+    updateItem(_id: $_id, id: $id, name: $name, quantity: $quantity, order: $order) {
+      id
+      name
+      quantity
+      order
     }
   }
 `;
@@ -122,14 +123,17 @@ export class MyListService {
     return this.http.post(`${this.BASE_URL}/itema`, item).map((res: Response) => <Item>res.json());
   }
 
-  updateItem(item: Item) {
+  updateItem(item: Item): Observable<ApolloQueryResult<Item>> {
     return this.apollo.mutate({
       mutation: UpdateItem,
       variables: {
         _id: item._id,
-        id_item: item.id
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+        order: item.order
       }
-    }).subscribe();
+    })
   }
 
   saveMyList(myList: MyList): Observable<MyList> {
@@ -140,12 +144,11 @@ export class MyListService {
     }
   }
 
-  saveItem(item: Item): Observable<Item> {
+  saveItem(item: Item): Observable<ApolloQueryResult<Item>> {
     if (item.id) {
-//      return this.updateItem(item);
-      this.updateItem(item);
-    } else {
-      return this.addItem(item);
+      return this.updateItem(item);
+//    } else {
+//      return this.addItem(item);
     }
   }
 }
