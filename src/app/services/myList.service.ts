@@ -43,9 +43,9 @@ const QueryMyList = gql`
 `;
 
 const QueryItem = gql`
-  query QueryItem($_id: String!, $id_item: String!) {
-    item(_id: $_id, id_item: $id_item) {
-      _id
+  query QueryItem($id_list: String!, $id_item: String!) {
+    item(id_list: $id_list, id_item: $id_item) {
+      id_list
       id
       name
       quantity
@@ -55,8 +55,8 @@ const QueryItem = gql`
 `;
 
 const UpdateItem = gql`
-  mutation UpdateItem($_id: String!, $id: String!, $name: String!, $quantity: Int!, $order: Int!) {
-    updateItem(_id: $_id, id: $id, name: $name, quantity: $quantity, order: $order) {
+  mutation UpdateItem($id_list: String!, $id: String!, $name: String!, $quantity: Int!, $order: Int!) {
+    updateItem(id_list: $id_list, id: $id, name: $name, quantity: $quantity, order: $order) {
       id
       name
       quantity
@@ -99,13 +99,13 @@ export class MyListService {
     return result;
   }
 
-  getItem(_id: string, id_item: string): ApolloQueryObservable<Item[]> {
+  getItem(id_list: string, id: string): ApolloQueryObservable<Item[]> {
     var result = this.apollo.watchQuery({
       query: QueryItem,
       fetchPolicy: 'network-only',
       variables: {
-        _id: _id,
-        id_item: id_item
+        id_list: id_list,
+        id_item: id
       }
     });
     return result;
@@ -127,7 +127,7 @@ export class MyListService {
     return this.apollo.mutate({
       mutation: UpdateItem,
       variables: {
-        _id: item._id,
+        id_list: item.id_list,
         id: item.id,
         name: item.name,
         quantity: item.quantity,
@@ -167,7 +167,7 @@ export class MyList {
 }
 
 export class Item {
-  _id: string;
+  id_list: string;
   id: string;
   name: string;
   order: string;

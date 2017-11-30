@@ -34,7 +34,7 @@ const appRoutes: Routes = [
     component: DataTableDemo3
   },
   {
-    path: '_id/:_id/item/:id',
+    path: 'myList/:id_list/item/:id',
     component: ItemDetailComponent
   },
   {
@@ -64,8 +64,8 @@ const appRoutes: Routes = [
 ];
 
 const networkInterface = createNetworkInterface({
-  // uri: 'http://vast-springs-18949.herokuapp.com/graphql',
-  uri: 'http://localhost:8080/graphql',
+  uri: 'http://vast-springs-18949.herokuapp.com/graphql',
+  // uri: 'http://localhost:8080/graphql',
   // do we need this option to enable CORS?
   opts: {
     // Additional fetch options like `credentials` or `headers`

@@ -3,10 +3,10 @@
   <div class="row">
     <div class="col-sm-4">
 
-      <div class="form-group" [ngClass]="{'has-error has-feedback': getError('_id')}">
-        <label class="center-block">_ID: </label>
-        <input class="form-control" formControlName="_id">
-        <span class="error" *ngIf="getError('_id')">{{getError('_id')}}</span>
+      <div class="form-group" [ngClass]="{'has-error has-feedback': getError('id_list')}">
+        <label class="center-block">List ID: </label>
+        <input class="form-control" formControlName="id_list">
+        <span class="error" *ngIf="getError('id_list')">{{getError('id_list')}}</span>
       </div>
 
       <div class="form-group" [ngClass]="{'has-error has-feedback': getError('id')}">
@@ -46,7 +46,7 @@
   <nav style="margin-bottom: 30px">
     <button type="submit" [disabled]="itemForm.pristine" class="btn btn-success">{{isNew? 'Add user' : 'Update'}}</button>
     <button *ngIf="!itemForm.pristine" type="reset" (click)="revert()" class="btn btn-primary">Revert</button>
-    <a *ngIf="itemForm.pristine" routerLink="/users">
+    <a *ngIf="itemForm.pristine" routerLink="/myList/{{getValue('id_list')}}">
       <button type="button" class="btn btn-primary">Back</button>
     </a>
   </nav>

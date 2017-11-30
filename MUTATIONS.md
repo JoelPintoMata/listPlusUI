@@ -3,12 +3,14 @@
 ## Update items
 
 mutation {
-  updateItem(_id:"5965ce9db194222e8b5f897e",
+  updateItem(
+    id_list:"1",
     id:"2",
     name:"test update",
     quantity:111,
     order:9
   ) {
+    id_list
     id
     name
     quantity

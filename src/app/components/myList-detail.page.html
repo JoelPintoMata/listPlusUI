@@ -19,17 +19,17 @@
   >
     <ng-template #dataTableExpand let-item="item">
       <div [textContent]="item.name" style="padding: 5px; color: gray"></div>
-      <div><button type="button" routerLink='/_id/{{item._id}}/item/{{item.id}}'>Edit</button></div>
+      <div><button type="button" routerLink='/myList/{{item.id_list}}/item/{{item.id}}'>Edit</button></div>
     </ng-template>
 
     <data-table-column
-      [property]="'_id'"
-      [header]="'_id'"
+      [property]="'id_list'"
+      [header]="'ID List'"
       [sortable]="true">
     </data-table-column>
     <data-table-column
       [property]="'id'"
-      [header]="'#'"
+      [header]="'ID'"
       [sortable]="true">
     </data-table-column>
     <data-table-column

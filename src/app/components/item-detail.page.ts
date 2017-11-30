@@ -22,7 +22,7 @@ export class ItemDetailComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private myListService: MyListService, private route: ActivatedRoute, private router: Router) {
     this.itemForm = this.fb.group({
-      _id: [''],
+      id_list: [''],
       id: [''],
       name: ['', Validators.required],
       quantity: ['', Validators.required],
@@ -36,14 +36,14 @@ export class ItemDetailComponent implements OnInit {
 //        this.isNew = params['id'] === 'new';
 //        if (this.isNew) {
 //          return new ApolloQueryObservable<Item[]>([{
-//            _id: '',
+//            id_list: '',
 //            id: '',
 //            name: '',
 //            quantity: '',
 //            order: ''
 //          });
 //        } else {
-          return this.myListService.getItem(params['_id'], params['id']);
+          return this.myListService.getItem(params['id_list'], params['id']);
 //        }
       })
       .subscribe(({data}) => {
@@ -101,6 +101,18 @@ export class ItemDetailComponent implements OnInit {
 //      }
 //    }
     return null;
+  }
+
+  getValue(key: string) {
+    const control = this.itemForm.get(key);
+//    if(control.errors) {
+//      if(control.errors.server_validation) {
+//        return control.errors.server_validation;
+//      } else if(control.touched && control.errors.required) {
+//        return 'This field is required';
+//      }
+//    }
+    return control.value;
   }
 
   revert() {
