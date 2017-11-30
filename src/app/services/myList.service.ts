@@ -54,6 +54,16 @@ const QueryItem = gql`
   }
 `;
 
+const UpdateItem = gql`
+  mutation UpdateItem($_id: String!, $id_item: String!) {
+    item(_id: $_id, id_item: $id_item) {
+      name: "<item_name>",
+      quantity: <item_quantity>,
+      order: <item_order>) {
+    }
+  }
+`;
+
 @Injectable()
 export class MyListService {
 
@@ -112,8 +122,14 @@ export class MyListService {
     return this.http.post(`${this.BASE_URL}/itema`, item).map((res: Response) => <Item>res.json());
   }
 
-  updateItem(item: Item): Observable<Item> {
-    return this.http.put(`${this.BASE_URL}/itemb/${item.id}`, item).map((res: Response) => <Item>res.json());
+  updateItem(item: Item) {
+    return this.apollo.mutate({
+      mutation: UpdateItem,
+      variables: {
+        _id: item._id,
+        id_item: item.id
+      }
+    }).subscribe();
   }
 
   saveMyList(myList: MyList): Observable<MyList> {
@@ -126,7 +142,8 @@ export class MyListService {
 
   saveItem(item: Item): Observable<Item> {
     if (item.id) {
-      return this.updateItem(item);
+//      return this.updateItem(item);
+      this.updateItem(item);
     } else {
       return this.addItem(item);
     }
