@@ -15,6 +15,21 @@
         <span class="error" *ngIf="getError('id')">{{getError('id')}}</span>
       </div>
 
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>URL</th>
+          <th>Image</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let image of images.controls">
+          <td>{{image.value}}</td>
+          <img ng-src="" alt=" Cover Image" width="150px;" height="150px;" src="{{image.value}}">
+        </tr>
+        </tbody>
+      </table>
+
       <div class="form-group" [ngClass]="{'has-error has-feedback': getError('name')}">
         <label class="center-block">Name: </label>
         <input class="form-control" formControlName="name">

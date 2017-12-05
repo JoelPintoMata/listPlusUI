@@ -27,8 +27,8 @@ const QueryMyLists = gql`
 `;
 
 const QueryMyList = gql`
-  query QueryMyList($id: String!, $sortBy: String, $sortAsc: Boolean) {
-    myList(id: $id, sortBy: $sortBy, sortAsc: $sortAsc) {
+  query QueryMyList($id_list: String!, $sortBy: String, $sortAsc: Boolean) {
+    myList(id_list: $id_list, sortBy: $sortBy, sortAsc: $sortAsc) {
       _id
       id
       name
@@ -47,6 +47,7 @@ const QueryItem = gql`
     item(id_list: $id_list, id_item: $id_item) {
       id_list
       id
+      images
       name
       quantity
       order
@@ -58,6 +59,7 @@ const UpdateItem = gql`
   mutation UpdateItem($id_list: String!, $id: String!, $name: String!, $quantity: Int!, $order: Int!) {
     updateItem(id_list: $id_list, id: $id, name: $name, quantity: $quantity, order: $order) {
       id
+      images
       name
       quantity
       order
@@ -91,7 +93,7 @@ export class MyListService {
 //      check https://www.apollographql.com/docs/react/basics/queries.html#graphql-query-options for other fetch options
       fetchPolicy: 'network-only',
       variables: {
-        id: myListId,
+        id_list: myListId,
         sortBy: myListItemsOrderBy,
         sortAsc: myListItemsSortAsc
       }
@@ -129,6 +131,7 @@ export class MyListService {
       variables: {
         id_list: item.id_list,
         id: item.id,
+        images: item.images,
         name: item.name,
         quantity: item.quantity,
         order: item.order
@@ -169,7 +172,8 @@ export class MyList {
 export class Item {
   id_list: string;
   id: string;
+  images: string[];
   name: string;
-  order: string;
   quantity?: string;
+  order: string;
 }

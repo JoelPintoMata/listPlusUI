@@ -17,13 +17,14 @@ export class ItemDetailComponent implements OnInit {
   isNew = false;
   feedback = '';
   item: Item;
-  allRoles: Role[];
+  allImages: String[];
   itemForm: FormGroup;
 
   constructor(private fb: FormBuilder, private myListService: MyListService, private route: ActivatedRoute, private router: Router) {
     this.itemForm = this.fb.group({
       id_list: [''],
       id: [''],
+      images: this.fb.array([]),
       name: ['', Validators.required],
       quantity: ['', Validators.required],
       order: ['', Validators.required]
@@ -31,6 +32,7 @@ export class ItemDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.allImages = [];
     this.route.params
       .switchMap((params: Params) => {
 //        this.isNew = params['id'] === 'new';
@@ -52,10 +54,19 @@ export class ItemDetailComponent implements OnInit {
       });
   }
 
+  get images(): FormArray {
+    return this.itemForm.get('images') as FormArray;
+  };
+
   setFormData(item: Item) {
     this.item = item;
     this.itemForm.reset(item);
-    this.item = item;
+    this.setImages(item.images);
+  }
+
+  setImages(images: string[]) {
+    const imageFGs = images.map(image => image);
+    this.itemForm.setControl('images', this.fb.array(imageFGs));
   }
 
   onSubmit() {

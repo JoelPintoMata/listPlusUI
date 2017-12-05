@@ -37,12 +37,12 @@ query QueryLists {
 ## Items
 
 ### Query for an item in particular
-
 query{
   item(id_list:"1", id_item:"2") {
     id
+    images
     name
-    quantity
     order
+    quantity
   }
 }
