@@ -3,7 +3,6 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-data-table';
-import { films } from './data-table-demo3-data';
 
 import { ApolloQueryObservable } from 'apollo-angular';
 import { Observable } from 'rxjs/Observable';
@@ -27,17 +26,15 @@ export class MyListDetailComponent {
     isNew = false;
     myList: MyList;
 
-    filmResource = new DataTableResource(films);
-    films = [];
-    filmCount = 0;
+    items = [];
+    itemCount = 0;
 
-    @ViewChild(DataTable) filmsTable;
+    @ViewChild(DataTable) itemsTable;
 
     constructor(private myListService: MyListService, private route: ActivatedRoute, private router: Router) {
-        this.filmResource.count().then(count => this.filmCount = count);
     }
 
-    reloadFilms(event) {
+    reloadItems(event) {
         this.route.params
           .switchMap((params: Params) => {
 //            this.isNew = params['id'] === 'new';
@@ -53,8 +50,8 @@ export class MyListDetailComponent {
             obj.myList[0].items.map(item => {
               itemsArray.push({"id_list": obj.myList[0].id, "id": item.id, "name": item.name, "order": item.order, "quantity": item.quantity});
             });
-            this.filmCount = itemsArray.length;
-            this.films = itemsArray;
+            this.itemCount = itemsArray.length;
+            this.items = itemsArray;
           });
     }
 

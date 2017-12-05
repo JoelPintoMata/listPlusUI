@@ -1,9 +1,9 @@
 <div style="margin: auto; max-width: 1000px; margin-top:50px">
-  <data-table id="films-grid"
+  <data-table id="items-grid"
               headerTitle="Items"
-              [items]="films"
+              [items]="items"
               [itemCount]="filmCount"
-              (reload)="reloadFilms($event)"
+              (reload)="reloadItems($event)"
 
               [limit]="8"
               [sortBy]="'order'"
@@ -57,7 +57,7 @@
 
   <div style="margin-top: 10px">
     <b>Selected:</b>
-    <span *ngIf="filmsTable.selectedRow == null"><i>No item selected</i></span>
-    <span [textContent]="filmsTable.selectedRow && filmsTable.selectedRow.item.title"></span>
+    <span *ngIf="itemsTable.selectedRow == null"><i>No item selected</i></span>
+    <span [textContent]="itemsTable.selectedRow && itemsTable.selectedRow.item.title"></span>
   </div>
 </div>
