@@ -46,3 +46,15 @@ query{
     quantity
   }
 }
+
+## Search
+
+### Broad search on list and item 'name' fields
+query{
+  search(search_string:"list"){
+    id_list
+    id
+    name
+    thingType
+  }
+}
