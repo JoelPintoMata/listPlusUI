@@ -10,6 +10,7 @@ import { ItemDetailComponent } from './components/item-detail.page';
 import { MyListDetailComponent } from './components/myList-detail.page';
 import { UserDetailComponent } from './components/user-detail.page';
 import { MyListListComponent } from './components/myList-list.page';
+import { SearchComponent } from './components/search.page';
 import { UserListComponent } from './components/user-list.page';
 
 import { MyListService } from './services/myList.service';
@@ -44,6 +45,10 @@ const appRoutes: Routes = [
   {
     path: 'myLists',
     component: MyListListComponent
+  },
+  {
+    path: 'search/:search_string',
+    component: SearchComponent
   },
   {
     path: 'users/:id',
@@ -90,7 +95,7 @@ export function provideClient(): ApolloClient {
     ApolloModule.forRoot(provideClient),
     DataTableModule
   ],
-  declarations: [AppComponent, UserDetailComponent, UserListComponent, MyListDetailComponent, ItemDetailComponent, MyListListComponent, DataTableDemo3],
+  declarations: [AppComponent, UserDetailComponent, UserListComponent, SearchComponent, MyListDetailComponent, ItemDetailComponent, MyListListComponent, DataTableDemo3],
   providers: [UserService, MyListService, RolesResolverService],
   bootstrap: [AppComponent]
 })

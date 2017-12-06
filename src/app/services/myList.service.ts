@@ -16,6 +16,19 @@ interface QueryResponse{
   loading
 }
 
+
+
+const Search = gql`
+query Search($search_string: String!) {
+    search(search_string: $search_string) {
+      id_list
+      id
+      name
+      thingType
+    }
+  }
+`;
+
 const QueryMyLists = gql`
   query QueryMyLists {
     myList {
@@ -113,6 +126,17 @@ export class MyListService {
     return result;
   }
 
+  search(search_string: string): ApolloQueryObservable<Thing[]> {
+    var result = this.apollo.watchQuery({
+      query: Search,
+      fetchPolicy: 'network-only',
+      variables: {
+        search_string: search_string
+      }
+    });
+    return result;
+  }
+
   addMyList(myList: MyList): Observable<MyList> {
     return this.http.post(`${this.BASE_URL}/myListsa`, myList).map((res: Response) => <MyList>res.json());
   }
@@ -154,6 +178,13 @@ export class MyListService {
 //      return this.addItem(item);
     }
   }
+}
+
+export class Thing {
+  id_list: string;
+  id: string;
+  name: string;
+  thingType: string;
 }
 
 export class MyList {
