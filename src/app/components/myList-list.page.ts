@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+
+import { SearchComponent } from '../components/search-result.page';
 import { MyListService, MyList } from '../services/myList.service';
 import 'rxjs/add/operator/finally';
 import { Router } from '@angular/router';
 
 import { ApolloQueryResult } from 'apollo-client';
+
 
 @Component({
   selector: 'if-myList',
@@ -34,5 +37,8 @@ export class MyListListComponent implements OnInit {
 
       this.myLists = obj.myList;
     });
+  }
+
+  getQRCode() {
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Injectable, Component, ViewChild, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
@@ -12,16 +12,19 @@ import { Thing, MyListService } from '../services/myList.service';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
+@Injectable()
 
 @Component({
-  selector: 'if-search',
-  templateUrl: './search.page.html',
+  selector: 'search',
+  templateUrl: './search-result.page.html',
   styleUrls: [
-      './search.page.css'
+      './search-result.page.css'
   ]
 })
 
 export class SearchComponent {
+
+    componentName: 'SearchComponent';
 
     isNew = false;
     thing: Thing;

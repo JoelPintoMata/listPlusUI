@@ -10,7 +10,7 @@ import { ItemDetailComponent } from './components/item-detail.page';
 import { MyListDetailComponent } from './components/myList-detail.page';
 import { UserDetailComponent } from './components/user-detail.page';
 import { MyListListComponent } from './components/myList-list.page';
-import { SearchComponent } from './components/search.page';
+import { SearchComponent } from './components/search-result.page';
 import { UserListComponent } from './components/user-list.page';
 
 import { MyListService } from './services/myList.service';
