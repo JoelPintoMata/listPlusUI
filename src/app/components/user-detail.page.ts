@@ -61,7 +61,7 @@ export class UserDetailComponent implements OnInit {
       });
   }
 
-  get roles(): FormArray {
+  getRoles(): FormArray {
     return this.userForm.get('roles') as FormArray;
   };
 

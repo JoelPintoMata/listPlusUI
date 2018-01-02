@@ -19,8 +19,8 @@ export class MyListListComponent implements OnInit {
   myLists: MyList[];
   isLoading = false;
 
-  constructor(private myListService: MyListService, private router: Router) {
-    console.log('myList: constructor');
+  constructor(private myListService: MyListService,
+      private router: Router) {
   }
 
   ngOnInit() {
@@ -37,8 +37,5 @@ export class MyListListComponent implements OnInit {
 
       this.myLists = obj.myList;
     });
-  }
-
-  getQRCode() {
   }
 }

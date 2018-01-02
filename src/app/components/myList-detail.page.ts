@@ -1,17 +1,20 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import{Component, ViewChild, OnInit}from '@angular/core';
 
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import {ActivatedRoute, Params, Router}from '@angular/router';
 
-import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-data-table';
+import {DataTable, DataTableTranslations, DataTableResource} from 'angular-4-data-table';
 
-import { ApolloQueryObservable } from 'apollo-angular';
-import { Observable } from 'rxjs/Observable';
+import {ApolloQueryObservable }from 'apollo-angular';
+import {Observable }from 'rxjs/Observable';
 
-import { MyList, Item, MyListService } from '../services/myList.service';
+import {MyList, Item, MyListService}from '../services/myList.service';
 
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
+import {Http, Response, Headers}from '@angular/http';
+
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'if-myList-detail',
@@ -23,15 +26,25 @@ import 'rxjs/add/observable/of';
 
 export class MyListDetailComponent {
 
+    headers = new Headers();
+
     isNew = false;
     myList: MyList;
+
+    image: SafeResourceUrl;
 
     items = [];
     itemCount = 0;
 
     @ViewChild(DataTable) itemsTable;
 
-    constructor(private myListService: MyListService, private route: ActivatedRoute, private router: Router) {
+    constructor(private http: Http,
+      private sanitizer: DomSanitizer,
+      private myListService: MyListService,
+      private route: ActivatedRoute,
+      private router: Router) {
+
+      this.getQRCode();
     }
 
     reloadItems(event) {
@@ -69,4 +82,21 @@ export class MyListDetailComponent {
         paginationLimit: 'Max results',
         paginationRange: 'Result range'
     };
+
+    getQRCode() {
+      console.log('myList-detail: getQRCode');
+      this.headers.append('Content-Type', 'application/json');
+      this.headers.append('Access-Control-Allow-Origin', '*');
+
+      let url = "http://localhost:8080/generateAndGetString";
+      this.http.post(url,
+        {name:"name", url:"url"},
+        {headers: this.headers})
+        .subscribe(res => {
+          var obj = JSON.parse(JSON.stringify(res));
+//          this.image = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL('data:image/png;base64,' + obj._body))
+
+          this.image = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + obj._body);
+        });
+    }
 }
