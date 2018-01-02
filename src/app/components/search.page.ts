@@ -15,16 +15,16 @@ import 'rxjs/add/observable/of';
 @Injectable()
 
 @Component({
-  selector: 'search-result',
-  templateUrl: './search-result.page.html',
+  selector: 'search',
+  templateUrl: './search.page.html',
   styleUrls: [
       './search-result.page.css'
   ]
 })
 
-export class SearchResultComponent {
+export class SearchComponent {
 
-    componentName: 'SearchResultComponent';
+    componentName: 'SearchComponent';
 
     isNew = false;
     thing: Thing;
