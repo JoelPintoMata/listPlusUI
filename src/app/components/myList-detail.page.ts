@@ -86,7 +86,6 @@ export class MyListDetailComponent {
     getQRCode() {
       console.log('myList-detail: getQRCode');
       this.headers.append('Content-Type', 'application/json');
-      this.headers.append('Access-Control-Allow-Origin', '*');
 
       let url = "http://localhost:8080/generateAndGetString";
       this.http.post(url,
@@ -94,8 +93,6 @@ export class MyListDetailComponent {
         {headers: this.headers})
         .subscribe(res => {
           var obj = JSON.parse(JSON.stringify(res));
-//          this.image = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL('data:image/png;base64,' + obj._body))
-
           this.image = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + obj._body);
         });
     }
