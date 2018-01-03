@@ -164,13 +164,6 @@ export class MyListService {
   }
 
   search(search_string: string) {
-    this.apollo.watchQuery({
-          query: Search,
-          variables: {
-            search_string: search_string
-          }
-        }).valueChanges;
-
     return this.apollo.watchQuery({
       query: Search,
       fetchPolicy: 'network-only',
