@@ -1,4 +1,5 @@
 import { Injectable, Component, ViewChild, OnInit } from '@angular/core';
+
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-data-table';
@@ -9,7 +10,7 @@ import { Thing, MyListService } from '../services/myList.service';
   selector: 'search-result',
   templateUrl: './search-result.page.html',
   styleUrls: [
-    './search-result.page.css'
+      './search-result.page.css'
   ]
 })
 
@@ -29,11 +30,12 @@ export class SearchResultComponent {
   }
 
   reloadThings(event) {
-    this.route.params
-      .switchMap((params: Params) => {
-        return this.myListService.search(params['search_string']);
-      })
-      .subscribe(({data}) => {
+    var search_string = this.route.params['_value'].search_string;
+
+    this.myListService.search(search_string)
+    .valueChanges
+    .subscribe(
+      ({data}) => {
         var obj = JSON.parse(JSON.stringify(data));
         var thingsArray = [];
         obj.search.map(thing => {
@@ -41,7 +43,9 @@ export class SearchResultComponent {
         });
         this.thingCount = thingsArray.length;
         this.things = thingsArray;
-      });
+      },
+      err => console.log('ERROR', err)
+    );
   }
 
   cellColor(car) {

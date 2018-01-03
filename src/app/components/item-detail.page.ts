@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ApolloModule, ApolloQueryObservable } from 'apollo-angular';
+import { ApolloModule } from 'apollo-angular';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -36,21 +36,12 @@ export class ItemDetailComponent implements OnInit {
 
   ngOnInit() {
     this.allImages = [];
-    this.route.params
-      .switchMap((params: Params) => {
-//        this.isNew = params['id'] === 'new';
-//        if (this.isNew) {
-//          return new ApolloQueryObservable<Item[]>([{
-//            id_list: '',
-//            id: '',
-//            name: '',
-//            quantity: '',
-//            order: ''
-//          });
-//        } else {
-          return this.myListService.getItem(params['id_list'], params['id']);
-//        }
-      })
+
+    var id = this.route.params['_value'].id;
+    var id_list = this.route.params['_value'].id_list;
+
+    this.myListService.getItem(id_list, id)
+      .valueChanges
       .subscribe(({data}) => {
         var item = JSON.parse(JSON.stringify(data))["item"];
         this.setFormData(item);

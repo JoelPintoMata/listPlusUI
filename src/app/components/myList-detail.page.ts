@@ -1,20 +1,15 @@
 import{Component, ViewChild, OnInit}from '@angular/core';
-
 import {ActivatedRoute, Params, Router}from '@angular/router';
+import {Http, Response, Headers}from '@angular/http';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 import {DataTable, DataTableTranslations, DataTableResource} from 'angular-4-data-table';
-
-import {ApolloQueryObservable }from 'apollo-angular';
-import {Observable }from 'rxjs/Observable';
 
 import {MyList, Item, MyListService}from '../services/myList.service';
 
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
-
-import {Http, Response, Headers}from '@angular/http';
-
-import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import {Observable }from 'rxjs/Observable';
 
 @Component({
   selector: 'if-myList-detail',
@@ -48,15 +43,12 @@ export class MyListDetailComponent {
     }
 
     reloadItems(event) {
-        this.route.params
-          .switchMap((params: Params) => {
-//            this.isNew = params['id'] === 'new';
-//            if (this.isNew) {
-//              return null;
-//            } else {
-              return this.myListService.getMyList(params['id'], event['sortBy'], event['sortAsc']);
-//            }
-          })
+        var id = this.route.params['_value'].id;
+        var sortBy = this.route.params['_value'].sortBy;
+        var sortAsc = this.route.params['_value'].sortAsc;
+
+        this.myListService.getMyList(id, sortBy, sortAsc)
+          .valueChanges
           .subscribe(({data}) => {
             var obj = JSON.parse(JSON.stringify(data));
             var itemsArray = [];
@@ -87,7 +79,7 @@ export class MyListDetailComponent {
       console.log('myList-detail: getQRCode');
       this.headers.append('Content-Type', 'application/json');
 
-      let url = "http://localhost:8080/generateAndGetString";
+      let url = "http://rest-qr-code-generator.herokuapp.com/generateAndGetString";
       this.http.post(url,
         {name:"name", url:"url"},
         {headers: this.headers})

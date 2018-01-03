@@ -5,22 +5,20 @@ import { environment } from '../../environment';
 import 'rxjs/add/operator/map';
 
 import { Apollo } from 'apollo-angular';
-import { ApolloModule, ApolloQueryObservable } from 'apollo-angular';
-import { ApolloClient, createNetworkInterface, ApolloQueryResult } from 'apollo-client';
+import { ApolloModule } from 'apollo-angular';
+import { ApolloClient, ApolloQueryResult } from 'apollo-client';
 
 import gql from 'graphql-tag';
-
 
 interface QueryResponse{
   list
   loading
 }
 
-
-
 const Search = gql`
-query Search($search_string: String!) {
+  query Search($search_string: String!) {
     search(search_string: $search_string) {
+      _id
       id_list
       id
       name
@@ -93,15 +91,14 @@ export class MyListService {
     this.apollo = apollo;
   }
 
-  getMyLists(): ApolloQueryObservable<MyList[]> {
-    var result = this.apollo.watchQuery({
+  getMyLists() {
+    return this.apollo.watchQuery({
       query: QueryMyLists
     });
-    return result;
   }
 
-  getMyList(myListId: string, myListItemsOrderBy: string, myListItemsSortAsc: boolean): ApolloQueryObservable<MyList[]> {
-    var result = this.apollo.watchQuery({
+  getMyList(myListId: string, myListItemsOrderBy: string, myListItemsSortAsc: boolean) {
+    return this.apollo.watchQuery({
       query: QueryMyList,
 //      check https://www.apollographql.com/docs/react/basics/queries.html#graphql-query-options for other fetch options
       fetchPolicy: 'network-only',
@@ -111,11 +108,10 @@ export class MyListService {
         sortAsc: myListItemsSortAsc
       }
     });
-    return result;
   }
 
-  getItem(id_list: string, id: string): ApolloQueryObservable<Item[]> {
-    var result = this.apollo.watchQuery({
+  getItem(id_list: string, id: string) {
+    return this.apollo.watchQuery({
       query: QueryItem,
       fetchPolicy: 'network-only',
       variables: {
@@ -123,18 +119,6 @@ export class MyListService {
         id_item: id
       }
     });
-    return result;
-  }
-
-  search(search_string: string): ApolloQueryObservable<Thing[]> {
-    var result = this.apollo.watchQuery({
-      query: Search,
-      fetchPolicy: 'network-only',
-      variables: {
-        search_string: search_string
-      }
-    });
-    return result;
   }
 
   addMyList(myList: MyList): Observable<MyList> {
@@ -177,6 +161,23 @@ export class MyListService {
 //    } else {
 //      return this.addItem(item);
     }
+  }
+
+  search(search_string: string) {
+    this.apollo.watchQuery({
+          query: Search,
+          variables: {
+            search_string: search_string
+          }
+        }).valueChanges;
+
+    return this.apollo.watchQuery({
+      query: Search,
+      fetchPolicy: 'network-only',
+      variables: {
+        search_string: search_string
+      }
+    });
   }
 }
 

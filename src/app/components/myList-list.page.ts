@@ -30,7 +30,9 @@ export class MyListListComponent implements OnInit {
 
   getMyLists() {
     this.isLoading = true;
-    this.myListService.getMyLists().subscribe(({data}) => {
+    this.myListService.getMyLists()
+    .valueChanges
+    .subscribe(({data}) => {
       this.isLoading = false;
 
       var obj = JSON.parse(JSON.stringify(data));

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -19,25 +20,21 @@ import { UserService } from './services/user.service';
 
 import { RolesResolverService } from './services/roles-resolver.service';
 
-// TODO we just need the environment in order to get the default backend url
 import { environment } from '../environment';
 
-import { ApolloModule } from 'apollo-angular';
-import { ApolloClient, createNetworkInterface } from 'apollo-client';
+import { ApolloClient } from 'apollo-client';
+import { ApolloModule, Apollo } from 'apollo-angular';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { DataTableModule } from 'angular-4-data-table';
-import { DataTableDemo3 } from './components/data-table-demo3';
 
 const appRoutes: Routes = [
   {
     path: 'search/:search_string',
     component: SearchResultComponent
-  },
-  {
-    path: 'myList/data-table-demo3/:id',
-    component: DataTableDemo3
   },
   {
     path: 'myList/:id_list/item/:id',
@@ -69,39 +66,31 @@ const appRoutes: Routes = [
   }
 ];
 
-const networkInterface = createNetworkInterface({
-  uri: 'http://vast-springs-18949.herokuapp.com/graphql',
-  //uri: 'http://localhost:8080/graphql',
-  // do we need this option to enable CORS?
-  opts: {
-    // Additional fetch options like `credentials` or `headers`
-    headers: 'Access-Control-Allow-Origin: *',
-  }
-});
-
-// by default, this client will send queries to `/graphql` (relative to the URL of your app)
-const client = new ApolloClient({
-  networkInterface,
-});
-
-export function provideClient(): ApolloClient {
-  return client;
-}
-
 @NgModule({
   imports: [BrowserModule,
     HttpModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
-    ApolloModule.forRoot(provideClient),
+    HttpClientModule,
+    HttpLinkModule,
+    ApolloModule,
     DataTableModule
   ],
-  declarations: [AppComponent, UserDetailComponent, UserListComponent, SearchComponent, SearchResultComponent, MyListDetailComponent, ItemDetailComponent, MyListListComponent, DataTableDemo3],
+  declarations: [AppComponent, UserDetailComponent, UserListComponent, SearchComponent, SearchResultComponent, MyListDetailComponent, ItemDetailComponent, MyListListComponent],
   providers: [UserService, MyListService, RolesResolverService],
   bootstrap: [AppComponent]
 })
 
 export class AppModule {
+  constructor(
+    apollo: Apollo,
+    httpLink: HttpLink
+  ) {
+    apollo.create({
+      link: httpLink.create({ uri: 'http://vast-springs-18949.herokuapp.com/graphql' }),
+      cache: new InMemoryCache()
+    });
+  }
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule);
