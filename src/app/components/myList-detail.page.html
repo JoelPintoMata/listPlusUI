@@ -1,4 +1,17 @@
 <div>
+  <div class="col-md-4">
+    <h2>My list(s)
+      <i *ngIf="isLoading">Loading myLists ... </i>
+    </h2>
+  </div>
+  <div class="col-md-4">
+  </div>
+  <div class="col-md-4">
+    <search></search>
+  </div>
+</div>
+<div>
+  <label>QR Code</label>
   <img [src]="image" alt="Red dot">
 </div>
 <div style="margin: auto; max-width: 1000px; margin-top:50px">
