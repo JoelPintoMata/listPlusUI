@@ -32,6 +32,10 @@ import { DataTableDemo3 } from './components/data-table-demo3';
 
 const appRoutes: Routes = [
   {
+    path: 'search/:search_string',
+    component: SearchResultComponent
+  },
+  {
     path: 'myList/data-table-demo3/:id',
     component: DataTableDemo3
   },
@@ -46,10 +50,6 @@ const appRoutes: Routes = [
   {
     path: 'myLists',
     component: MyListListComponent
-  },
-  {
-    path: 'search/:search_string',
-    component: SearchComponent
   },
   {
     path: 'users/:id',

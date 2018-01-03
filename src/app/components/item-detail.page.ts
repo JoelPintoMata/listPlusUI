@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 import { ApolloModule, ApolloQueryObservable } from 'apollo-angular';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/of';
+
+import { Observable } from 'rxjs/Observable';
 
 import { Item, MyListService } from '../services/myList.service';
 import { Role } from '../services/roles-resolver.service';
+
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/of';
 
 @Component({
   selector: 'if-item-detail',
   templateUrl: './item-detail.page.html'
 })
+
 export class ItemDetailComponent implements OnInit {
   isNew = false;
   feedback = '';
