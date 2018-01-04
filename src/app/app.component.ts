@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'if-app',
   template: `
     <div class="container">
-      <h1>My Lists</h1>
+      <br>
       <router-outlet></router-outlet>
     </div>`
 })

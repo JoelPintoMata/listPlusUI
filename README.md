@@ -27,3 +27,6 @@ Close process running on port 4200
 ```
 sudo kill `sudo lsof -t -i:4200`
 ```
+
+## Further documentation
+[Apollo](https://www.apollographql.com/docs/angular/index.html)

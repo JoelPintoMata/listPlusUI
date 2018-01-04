@@ -6,15 +6,15 @@ import {FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'search',
-  templateUrl: './search.page.html',
+  templateUrl: './mainNavBar.page.html',
   styleUrls: [
-      './search.page.css'
+      './mainNavBar.page.css'
   ]
 })
 
-export class SearchComponent {
+export class MainNavBarComponent {
 
-  componentName: 'SearchComponent';
+  componentName: 'MainNavBarComponent';
 
   searchForm: FormGroup;
 

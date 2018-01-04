@@ -11,7 +11,7 @@ import { ItemDetailComponent } from './components/item-detail.page';
 import { MyListDetailComponent } from './components/myList-detail.page';
 import { UserDetailComponent } from './components/user-detail.page';
 import { MyListListComponent } from './components/myList-list.page';
-import { SearchComponent } from './components/search.page';
+import { MainNavBarComponent } from './components/mainNavBar.page';
 import { SearchResultComponent } from './components/search-result.page';
 import { UserListComponent } from './components/user-list.page';
 
@@ -76,7 +76,7 @@ const appRoutes: Routes = [
     ApolloModule,
     DataTableModule
   ],
-  declarations: [AppComponent, UserDetailComponent, UserListComponent, SearchComponent, SearchResultComponent, MyListDetailComponent, ItemDetailComponent, MyListListComponent],
+  declarations: [AppComponent, UserDetailComponent, UserListComponent, MainNavBarComponent, SearchResultComponent, MyListDetailComponent, ItemDetailComponent, MyListListComponent],
   providers: [UserService, MyListService, RolesResolverService],
   bootstrap: [AppComponent]
 })
