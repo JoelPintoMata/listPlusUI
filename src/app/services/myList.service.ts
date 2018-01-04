@@ -18,9 +18,10 @@ interface QueryResponse{
 const Search = gql`
   query Search($search_string: String!) {
     search(search_string: $search_string) {
+      id
       _id
       id_list
-      id
+      id_item
       name
       thingType
     }
@@ -163,8 +164,8 @@ export class MyListService {
     }
   }
 
-  search(search_string: string) {
-    return this.apollo.watchQuery({
+  search(search_string: string): Observable<ApolloQueryResult<Thing>> {
+    return this.apollo.query({
       query: Search,
       fetchPolicy: 'network-only',
       variables: {
@@ -175,8 +176,10 @@ export class MyListService {
 }
 
 export class Thing {
-  id_list: string;
   id: string;
+  _id: string;
+  id_list: string;
+  id_item: string;
   name: string;
   thingType: string;
 }

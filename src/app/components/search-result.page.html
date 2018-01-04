@@ -27,13 +27,23 @@
     </ng-template>
 
     <data-table-column
+      [property]="'id'"
+      [header]="'ID'"
+      [sortable]="true">
+    </data-table-column>
+    <data-table-column
+      [property]="'_id'"
+      [header]="'Doc ID'"
+      [sortable]="true">
+    </data-table-column>
+    <data-table-column
       [property]="'id_list'"
       [header]="'List ID'"
       [sortable]="true">
     </data-table-column>
     <data-table-column
-      [property]="'id'"
-      [header]="'ID'"
+      [property]="'id_item'"
+      [header]="'Item ID'"
       [sortable]="true">
     </data-table-column>
     <data-table-column
