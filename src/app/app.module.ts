@@ -87,8 +87,8 @@ export class AppModule {
     httpLink: HttpLink
   ) {
     apollo.create({
-//      link: httpLink.create({ uri: 'http://vast-springs-18949.herokuapp.com/graphql' }),
-      link: httpLink.create({ uri: 'http://localhost:8080/graphql' }),
+      link: httpLink.create({ uri: 'http://vast-springs-18949.herokuapp.com/graphql' }),
+//      link: httpLink.create({ uri: 'http://localhost:8080/graphql' }),
       cache: new InMemoryCache()
     });
   }
