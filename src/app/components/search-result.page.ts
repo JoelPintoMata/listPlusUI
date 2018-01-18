@@ -28,6 +28,7 @@ export class SearchResultComponent {
   constructor(private myListService: MyListService,
       private route: ActivatedRoute,
       private router: Router) {
+    route.params.subscribe(val => this.reloadThings(null))
   }
 
   reloadThings(event) {

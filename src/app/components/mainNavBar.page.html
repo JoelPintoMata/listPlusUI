@@ -10,7 +10,6 @@
     <a class="navbar-brand" href="/">Home</a>
   </div>
 
-  <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
       <li class="active"><a href="/myLists">My lists</a></li>
@@ -30,10 +29,12 @@
     </ul>
     <div class="col-sm-3 col-md-3">
       <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="navbar-form" novalidate>
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" name="q">
-          <div class="input-group-btn">
-            <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        <div id="custom-search-input">
+          <div class="input-group">
+            <input type="text" class="form-control" formControlName="search_string" placeholder="search...">
+            <div class="input-group-btn">
+              <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
           </div>
         </div>
       </form>
