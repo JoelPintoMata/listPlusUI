@@ -1,0 +1,83 @@
+<search></search>
+<div class="row">
+  <div class="col-md-4">
+    <h2>My list(s)
+      <i *ngIf="isLoading">Loading myLists ... </i>
+    </h2>
+  </div>
+  <div class="col-md-4">
+  </div>
+  <div class="col-md-4">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+  </div>
+  <div class="col-md-4">
+  </div>
+  <div class="col-md-4">
+  </div>
+</div>
+<div class="row" style="margin: auto; max-width: 1000px; margin-top:50px">
+  <data-table id="items-grid"
+              headerTitle="Items"
+              [items]="items"
+              [itemCount]="itemCount"
+              (reload)="reloadItems($event)"
+
+              [limit]="8"
+              [sortBy]="'order'"
+              [sortAsc]="false"
+
+              [selectColumn]="true"
+              [multiSelect]="false"
+              [substituteRows]="false"
+              [expandableRows]="true"
+              [translations]="translations"
+              [indexColumnHeader]="'#'"
+              [selectOnRowClick]="true"
+  >
+    <ng-template #dataTableExpand let-item="item">
+      <span [textContent]="item.name" style="padding: 5px; color: gray"></span>
+      <button type="button" routerLink='/myList/{{item.id_list}}/item/{{item.id}}'>Edit</button>
+    </ng-template>
+
+    <data-table-column
+      [property]="'id_list'"
+      [header]="'ID List'"
+      [sortable]="true">
+    </data-table-column>
+    <data-table-column
+      [property]="'id'"
+      [header]="'ID'"
+      [sortable]="true">
+    </data-table-column>
+    <data-table-column
+      [property]="'images'"
+      [header]="'Image(s)'"
+      [sortable]="false">
+    </data-table-column>
+    <data-table-column
+      [property]="'name'"
+      [header]="'Name'"
+      [sortable]="true">
+    </data-table-column>
+    <data-table-column
+      [property]="'order'"
+      [header]="'Order'"
+      [sortable]="true"
+      [cellColors]="cellColor">
+    </data-table-column>
+    <data-table-column
+      [property]="'quantity'"
+      [header]="'Quantity'"
+      [sortable]="true">
+    </data-table-column>
+  </data-table>
+
+  <div style="margin-top: 10px">
+    <b>Selected:</b>
+    <span *ngIf="itemsTable.selectedRow == null"><i>No item selected</i></span>
+    <span [textContent]="itemsTable.selectedRow && itemsTable.selectedRow.item.title"></span>
+  </div>
+</div>

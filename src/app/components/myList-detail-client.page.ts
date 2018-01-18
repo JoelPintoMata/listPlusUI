@@ -12,14 +12,14 @@ import 'rxjs/add/observable/of';
 import {Observable }from 'rxjs/Observable';
 
 @Component({
-  selector: 'if-myList-detail',
-  templateUrl: './myList-detail.page.html',
+  selector: 'if-myList-detail-client',
+  templateUrl: './myList-detail-client.page.html',
   styleUrls: [
-      './myList-detail.page.css'
+      './myList-detail-client.page.css'
   ]
 })
 
-export class MyListDetailComponent {
+export class MyListDetailClientComponent {
 
     headers = new Headers();
 
@@ -38,12 +38,11 @@ export class MyListDetailComponent {
       private myListService: MyListService,
       private route: ActivatedRoute,
       private router: Router) {
-
-      this.getQRCode();
     }
 
     reloadItems(event) {
         var id = this.route.params['_value'].id;
+        var view = this.route.params['_value'].view;
         var sortBy = this.route.params['_value'].sortBy;
         var sortAsc = this.route.params['_value'].sortAsc;
 

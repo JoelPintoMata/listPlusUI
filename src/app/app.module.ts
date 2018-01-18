@@ -8,7 +8,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 
 import { ItemDetailComponent } from './components/item-detail.page';
-import { MyListDetailComponent } from './components/myList-detail.page';
+import { MyListDetailClientComponent } from './components/myList-detail-client.page';
+import { MyListDetailAdminComponent } from './components/myList-detail-admin.page';
 import { UserDetailComponent } from './components/user-detail.page';
 import { MyListListComponent } from './components/myList-list.page';
 import { MainNavBarComponent } from './components/mainNavBar.page';
@@ -41,8 +42,12 @@ const appRoutes: Routes = [
     component: ItemDetailComponent
   },
   {
-    path: 'myList/:id',
-    component: MyListDetailComponent
+  path: 'myList/:id/view/client',
+  component: MyListDetailClientComponent
+  },
+  {
+  path: 'myList/:id/view/admin',
+  component: MyListDetailAdminComponent
   },
   {
     path: 'myLists',
@@ -76,7 +81,7 @@ const appRoutes: Routes = [
     ApolloModule,
     DataTableModule
   ],
-  declarations: [AppComponent, UserDetailComponent, UserListComponent, MainNavBarComponent, SearchResultComponent, MyListDetailComponent, ItemDetailComponent, MyListListComponent],
+  declarations: [AppComponent, UserDetailComponent, UserListComponent, MainNavBarComponent, SearchResultComponent, MyListDetailAdminComponent, MyListDetailClientComponent, ItemDetailComponent, MyListListComponent],
   providers: [UserService, MyListService, RolesResolverService],
   bootstrap: [AppComponent]
 })

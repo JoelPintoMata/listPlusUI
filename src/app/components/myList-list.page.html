@@ -15,12 +15,16 @@
   <tr>
     <th>ID</th>
     <th>First name</th>
+    <th></th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let myList of myLists">
-    <td><a routerLink="/myList/{{myList.id}}">{{myList.id}}</a></td>
+    <td>{{myList.id}}</td>
     <td>{{myList.name}}</td>
+    <td><a routerLink="/myList/{{myList.id}}/view/client">Client</a></td>
+    <td><a routerLink="/myList/{{myList.id}}/view/admin">Admin</a></td>
   </tr>
   </tbody>
 </table>
