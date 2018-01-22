@@ -69,7 +69,7 @@ const QueryItem = gql`
 
 const UpdateItem = gql`
   mutation UpdateItem($id_list: String!, $id: String!, $name: String!, $quantity: Int!, $order: Int!) {
-    updateItem(id_list: $id_list, id: $id, name: $name, quantity: $quantity, order: $order) {
+    updateItem(id_list: $id_list, id_item: $id, name: $name, quantity: $quantity, order: $order) {
       id
       images
       name

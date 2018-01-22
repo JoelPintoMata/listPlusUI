@@ -41,7 +41,8 @@
   >
     <ng-template #dataTableExpand let-item="item">
       <span [textContent]="item.name" style="padding: 5px; color: gray"></span>
-      <button type="button" routerLink='/myList/{{item.id_list}}/item/{{item.id}}'>Edit</button>
+      <button type="button" routerLink='/myList/{{item.id_list}}/item/{{item.id}}/mode/view'>View</button>
+      <button type="button" routerLink='/myList/{{item.id_list}}/item/{{item.id}}/mode/edit'>Edit</button>
     </ng-template>
 
     <data-table-column

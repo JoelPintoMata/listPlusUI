@@ -18,6 +18,7 @@ import 'rxjs/add/observable/of';
 
 export class ItemDetailComponent implements OnInit {
   isNew = false;
+  mode = '';
   feedback = '';
   item: Item;
   allImages: String[];
@@ -30,7 +31,8 @@ export class ItemDetailComponent implements OnInit {
       images: this.fb.array([]),
       name: ['', Validators.required],
       quantity: ['', Validators.required],
-      order: ['', Validators.required]
+      order: ['', Validators.required],
+      mode: ['']
     });
   }
 
@@ -39,11 +41,15 @@ export class ItemDetailComponent implements OnInit {
 
     var id = this.route.params['_value'].id;
     var id_list = this.route.params['_value'].id_list;
+    this.mode = this.route.params['_value'].mode;
 
     this.myListService.getItem(id_list, id)
       .valueChanges
       .subscribe(({data}) => {
         var item = JSON.parse(JSON.stringify(data))["item"];
+        if(this.mode == 'view') {
+          this.itemForm.disable();
+        }
         this.setFormData(item);
       });
   }
@@ -59,8 +65,10 @@ export class ItemDetailComponent implements OnInit {
   }
 
   setImages(images: string[]) {
-    const imageFGs = images.map(image => image);
-    this.itemForm.setControl('images', this.fb.array(imageFGs));
+    if(images != null) {
+      const imageFGs = images.map(image => image);
+      this.itemForm.setControl('images', this.fb.array(imageFGs));
+    }
   }
 
   onSubmit() {
@@ -69,7 +77,7 @@ export class ItemDetailComponent implements OnInit {
     this.myListService.saveItem(this.itemForm.value)
       .subscribe(({data}) => {
         if (this.isNew) {
-          this.router.navigate(['/items', data.id]);
+          this.router.navigate(['/myList/'+data.id_list+'/item/'+data.id]);
         } else {
           this.setFormData(data);
         }

@@ -51,14 +51,13 @@
     </div>
   </div>
 
-  <div class="alert" [ngClass]="{'alert-success': feedback==='SUCCESS', 'alert-warning': feedback==='INVALID', 'alert-danger': feedback==='ERROR'}">
+  <div *ngIf="mode == 'edit'" class="alert" [ngClass]="{'alert-success': feedback==='SUCCESS', 'alert-warning': feedback==='INVALID', 'alert-danger': feedback==='ERROR'}">
     <span *ngIf="feedback==='SUCCESS'"><strong>Success!</strong> Data saved.</span>
     <span *ngIf="feedback==='INVALID'"><strong>Validation error!</strong> Data validation failed.</span>
     <span *ngIf="feedback==='ERROR'"><strong>Error!</strong> Unknown server error.</span>
-    &nbsp;
   </div>
 
-  <nav style="margin-bottom: 30px">
+  <nav *ngIf="mode == 'edit'" style="margin-bottom: 30px">
     <button type="submit" [disabled]="itemForm.pristine" class="btn btn-success">{{isNew? 'Add user' : 'Update'}}</button>
     <button *ngIf="!itemForm.pristine" type="reset" (click)="revert()" class="btn btn-primary">Revert</button>
     <a *ngIf="itemForm.pristine" routerLink="/myList/{{getValue('id_list')}}">
