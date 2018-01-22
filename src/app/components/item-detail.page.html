@@ -25,12 +25,11 @@
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
-          <div *ngFor="let image of images.controls; let idx = index" >
-            {{idx}}
-            <div [ngClass]="idx=='0' ? 'item active idx' : 'item '+ idx">
+          <span *ngFor="let image of images.controls; let idx = index" >
+            <div [ngClass]="idx == '0' ? 'item active' : 'item'">
               <img ng-src="" alt=" Cover Image" width="150px;" height="150px;" src="{{image.value}}">
             </div>
-          </div>
+          </span>
         </div>
 
         <!-- Left and right controls -->
