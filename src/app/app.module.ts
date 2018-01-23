@@ -66,7 +66,7 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/users',
+    redirectTo: '/myLists',
     pathMatch: 'full'
   }
 ];

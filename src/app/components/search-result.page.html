@@ -7,69 +7,61 @@
   <div class="col-md-4">
   </div>
 </div>
-<div style="margin: auto; max-width: 1000px; margin-top:50px">
-  <data-table id="things-grid"
-              headerTitle="Search result(s)"
-              [items]="things"
-              [itemCount]="thingCount"
-              (reload)="reloadThings($event)"
+<data-table id="things-grid"
+            headerTitle="Search result(s)"
+            [items]="things"
+            [itemCount]="thingCount"
+            (reload)="reloadThings($event)"
 
-              [limit]="8"
-              [sortBy]="'thingType'"
-              [sortAsc]="false"
+            [limit]="8"
+            [sortBy]="'thingType'"
+            [sortAsc]="false"
 
-              [selectColumn]="false"
-              [multiSelect]="false"
-              [substituteRows]="false"
-              [expandableRows]="true"
-              [translations]="translations"
-              [indexColumnHeader]="'#'"
-              [selectOnRowClick]="true"
-  >
-    <ng-template #dataTableExpand let-item="item">
-      <span *ngIf="item.thingType == 'MyList'">
-        <button type="button" routerLink='/myList/{{item.id_list}}'>Go to</button>
-      </span>
-      <span *ngIf="item.thingType == 'Item'">
-        <button type="button" routerLink='/myList/{{item.id_list}}/item/{{item.id}}'>Go to</button>
-      </span>
-    </ng-template>
+            [selectColumn]="false"
+            [multiSelect]="false"
+            [substituteRows]="false"
+            [expandableRows]="true"
+            [translations]="translations"
+            [indexColumnHeader]="'#'"
+            [selectOnRowClick]="false"
+>
+  <ng-template #dataTableExpand let-item="item">
+    <span *ngIf="item.thingType == 'MyList'">
+      <button type="button" routerLink='/myList/{{item.id_list}}'>Go to</button>
+    </span>
+    <span *ngIf="item.thingType == 'Item'">
+      <button type="button" routerLink='/myList/{{item.id_list}}/item/{{item.id}}'>Go to</button>
+    </span>
+  </ng-template>
 
-    <data-table-column
-      [property]="'id'"
-      [header]="'ID'"
-      [sortable]="true">
-    </data-table-column>
-    <data-table-column
-      [property]="'_id'"
-      [header]="'Doc ID'"
-      [sortable]="true">
-    </data-table-column>
-    <data-table-column
-      [property]="'id_list'"
-      [header]="'List ID'"
-      [sortable]="true">
-    </data-table-column>
-    <data-table-column
-      [property]="'id_item'"
-      [header]="'Item ID'"
-      [sortable]="true">
-    </data-table-column>
-    <data-table-column
-      [property]="'name'"
-      [header]="'Name'"
-      [sortable]="true">
-    </data-table-column>
-    <data-table-column
-      [property]="'thingType'"
-      [header]="'Type'"
-      [sortable]="true">
-    </data-table-column>
-  </data-table>
-
-  <div style="margin-top: 10px">
-    <b>Selected:</b>
-    <span *ngIf="thingsTable.selectedRow == null"><i>No thing selected</i></span>
-    <span [textContent]="thingsTable.selectedRow && thingsTable.selectedRow.name"></span>
-  </div>
-</div>
+  <data-table-column
+    [property]="'id'"
+    [header]="'ID'"
+    [sortable]="true">
+  </data-table-column>
+  <data-table-column
+    [property]="'_id'"
+    [header]="'Doc ID'"
+    [sortable]="true">
+  </data-table-column>
+  <data-table-column
+    [property]="'id_list'"
+    [header]="'List ID'"
+    [sortable]="true">
+  </data-table-column>
+  <data-table-column
+    [property]="'id_item'"
+    [header]="'Item ID'"
+    [sortable]="true">
+  </data-table-column>
+  <data-table-column
+    [property]="'name'"
+    [header]="'Name'"
+    [sortable]="true">
+  </data-table-column>
+  <data-table-column
+    [property]="'thingType'"
+    [header]="'Type'"
+    [sortable]="true">
+  </data-table-column>
+</data-table>
