@@ -29,10 +29,15 @@
       <div id="itemImageCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
-          <li data-target="#itemImageCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#itemImageCarousel" data-slide-to="1"></li>
-          <li data-target="#itemImageCarousel" data-slide-to="2"></li>
+          <ng-container *ngFor="let image of images.controls; let idx = index" >
+            <li data-target="#itemImageCarousel" data-slide-to="idx" [ngClass]="idx == '0' ? 'active' : ''"></li>
+          </ng-container>
         </ol>
+        <!--<ol class="carousel-indicators">-->
+          <!--<li data-target="#itemImageCarousel" data-slide-to="0" class="active"></li>-->
+          <!--<li data-target="#itemImageCarousel" data-slide-to="1"></li>-->
+          <!--<li data-target="#itemImageCarousel" data-slide-to="2"></li>-->
+        <!--</ol>-->
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
