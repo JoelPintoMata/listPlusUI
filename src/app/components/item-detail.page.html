@@ -25,11 +25,11 @@
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
-          <span *ngFor="let image of images.controls; let idx = index" >
+          <ng-container *ngFor="let image of images.controls; let idx = index" >
             <div [ngClass]="idx == '0' ? 'item active' : 'item'">
-              <img ng-src="" alt=" Cover Image" width="150px;" height="150px;" src="{{image.value}}">
+              <img ng-src="" alt="Cover Image" max="150px;" height="150px;" src="{{image.value}}">
             </div>
-          </span>
+          </ng-container>
         </div>
 
         <!-- Left and right controls -->
@@ -42,21 +42,6 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
-
-      <!--<table class="table table-hover">-->
-        <!--<thead>-->
-          <!--<tr>-->
-            <!--<th>URL</th>-->
-            <!--<th>Image</th>-->
-          <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-          <!--<tr *ngFor="let image of images.controls">-->
-            <!--<td>{{image.value}}</td>-->
-            <!--<img ng-src="" alt=" Cover Image" width="150px;" height="150px;" src="{{image.value}}">-->
-          <!--</tr>-->
-        <!--</tbody>-->
-      <!--</table>-->
 
       <div class="form-group" [ngClass]="{'has-error has-feedback': getError('name')}">
         <label class="center-block">Name: </label>
