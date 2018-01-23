@@ -31,6 +31,9 @@ export class SearchResultComponent {
     route.params.subscribe(val => this.reloadThings(null))
   }
 
+  ngOnInit() {
+  }
+
   reloadThings(event) {
     var thingsArray = [];
     var search_string = this.route.params['_value'].search_string;

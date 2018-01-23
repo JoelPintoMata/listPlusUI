@@ -18,7 +18,7 @@
               [sortBy]="'thingType'"
               [sortAsc]="false"
 
-              [selectColumn]="true"
+              [selectColumn]="false"
               [multiSelect]="false"
               [substituteRows]="false"
               [expandableRows]="true"
@@ -70,6 +70,6 @@
   <div style="margin-top: 10px">
     <b>Selected:</b>
     <span *ngIf="thingsTable.selectedRow == null"><i>No thing selected</i></span>
-    <span [textContent]="thingsTable.selectedRow && thingsTable.selectedRow.thing.name"></span>
+    <span [textContent]="thingsTable.selectedRow && thingsTable.selectedRow.name"></span>
   </div>
 </div>
