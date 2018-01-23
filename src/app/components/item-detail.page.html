@@ -21,7 +21,7 @@
       </div>
 
       <div class="form-group" [ngClass]="{'has-error has-feedback': getError('id')}">
-        <label class="center-block">ID: </label>
+        <label class="center-block">Item ID: </label>
         <input class="form-control" formControlName="id">
         <span class="error" *ngIf="getError('id')">{{getError('id')}}</span>
       </div>
@@ -65,13 +65,7 @@
         <span class="error" *ngIf="getError('name')">{{getError('name')}}</span>
       </div>
 
-      <div class="form-group" [ngClass]="{'has-error has-feedback': getError('quantity')}">
-        <label class="center-block">Quantity: </label>
-        <input class="form-control" formControlName="quantity">
-        <span class="error" *ngIf="getError('quantity')">{{getError('quantity')}}</span>
-      </div>
-
-      <div class="form-group" [ngClass]="{'has-error has-feedback': getError('order')}">
+      <div *ngIf="mode == 'edit'" class="form-group" [ngClass]="{'has-error has-feedback': getError('order')}">
         <label class="center-block">Order: </label>
         <input class="form-control" formControlName="order">
         <span class="error" *ngIf="getError('order')">{{getError('order')}}</span>
