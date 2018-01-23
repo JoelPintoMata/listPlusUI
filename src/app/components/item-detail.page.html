@@ -1,4 +1,15 @@
-<h2>Item Details</h2>
+<search></search>
+<div>
+  <div class="col-md-4">
+    <h2>My list(s)
+      <i *ngIf="isLoading">Loading myLists ... </i>
+    </h2>
+  </div>
+  <div class="col-md-4">
+  </div>
+  <div class="col-md-4">
+  </div>
+</div>
 <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" novalidate>
   <div class="row">
     <div class="col-sm-4">
@@ -33,11 +44,11 @@
         </div>
 
         <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <a class="left carousel-control" href="#itemImageCarousel" data-slide="prev">
           <span class="glyphicon glyphicon-chevron-left"></span>
           <span class="sr-only">Previous</span>
         </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <a class="right carousel-control" href="#itemImageCarousel" data-slide="next">
           <span class="glyphicon glyphicon-chevron-right"></span>
           <span class="sr-only">Next</span>
         </a>
