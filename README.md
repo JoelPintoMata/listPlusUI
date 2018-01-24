@@ -30,3 +30,4 @@ sudo kill `sudo lsof -t -i:4200`
 
 ## Further documentation
 [Apollo](https://www.apollographql.com/docs/angular/index.html)
+[Post Angular app to Heroku](https://medium.com/@ryanchenkie_40935/angular-cli-deployment-host-your-angular-2-app-on-heroku-3f266f13f352)
