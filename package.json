@@ -61,6 +61,7 @@
   },
   "repository": {},
   "engines": {
+    "node": "9.2.0",
     "npm": "5.6.0"
   }
 }
