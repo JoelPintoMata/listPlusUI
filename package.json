@@ -10,8 +10,7 @@
     "build": "ng build",
     "build_prod": "ng build --aot --prod",
     "lint": "ng lint",
-    "prepush": "ng lint",
-    "postinstall": "ng build --aot -prod"
+    "prepush": "ng lint"
   },
   "keywords": [],
   "author": "",
