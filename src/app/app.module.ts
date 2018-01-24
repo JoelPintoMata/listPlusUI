@@ -38,15 +38,15 @@ const appRoutes: Routes = [
     component: SearchResultComponent
   },
   {
-    path: 'myList/:id_list/item/:id/mode/:mode',
+    path: 'myList/:id_list/item/:id/role/:role/mode/:mode',
     component: ItemDetailComponent
   },
   {
-    path: 'myList/:id/view/client',
+    path: 'myList/:id/role/client',
     component: MyListDetailClientComponent
   },
   {
-    path: 'myList/:id/view/admin',
+    path: 'myList/:id/role/admin',
     component: MyListDetailAdminComponent
   },
   {
@@ -92,8 +92,8 @@ export class AppModule {
     httpLink: HttpLink
   ) {
     apollo.create({
-      link: httpLink.create({ uri: 'http://vast-springs-18949.herokuapp.com/graphql' }),
-//      link: httpLink.create({ uri: 'http://localhost:8080/graphql' }),
+//      link: httpLink.create({ uri: 'http://vast-springs-18949.herokuapp.com/graphql' }),
+      link: httpLink.create({ uri: 'http://localhost:8080/graphql' }),
       cache: new InMemoryCache()
     });
   }

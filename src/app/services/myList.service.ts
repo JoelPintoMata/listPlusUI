@@ -47,6 +47,7 @@ const QueryMyList = gql`
       items {
         id
         name
+        description
         quantity
         order
       }
@@ -61,6 +62,7 @@ const QueryItem = gql`
       id
       images
       name
+      description
       quantity
       order
     }
@@ -68,11 +70,12 @@ const QueryItem = gql`
 `;
 
 const UpdateItem = gql`
-  mutation UpdateItem($id_list: String!, $id: String!, $name: String!, $quantity: Int!, $order: Int!) {
-    updateItem(id_list: $id_list, id_item: $id, name: $name, quantity: $quantity, order: $order) {
+  mutation UpdateItem($id_list: String!, $id: String!, $name: String!, $description: String!, $quantity: Int!, $order: Int!) {
+    updateItem(id_list: $id_list, id_item: $id, name: $name, description: $description, quantity: $quantity, order: $order) {
       id
       images
       name
+      description
       quantity
       order
     }
@@ -142,6 +145,7 @@ export class MyListService {
         id: item.id,
         images: item.images,
         name: item.name,
+        description: item.description,
         quantity: item.quantity,
         order: item.order
       }
@@ -202,6 +206,7 @@ export class Item {
   id: string;
   images: string[];
   name: string;
+  description: string;
   quantity?: string;
   order: string;
 }

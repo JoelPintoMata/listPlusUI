@@ -23,8 +23,8 @@
   <tr *ngFor="let myList of myLists">
     <td>{{myList.id}}</td>
     <td>{{myList.name}}</td>
-    <td><a routerLink="/myList/{{myList.id}}/view/client">Client</a></td>
-    <td><a routerLink="/myList/{{myList.id}}/view/admin">Admin</a></td>
+    <td><a routerLink="/myList/{{myList.id}}/role/client">Client</a></td>
+    <td><a routerLink="/myList/{{myList.id}}/role/admin">Admin</a></td>
   </tr>
   </tbody>
 </table>

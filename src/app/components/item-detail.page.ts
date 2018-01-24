@@ -18,11 +18,13 @@ import 'rxjs/add/observable/of';
 
 export class ItemDetailComponent implements OnInit {
   isNew = false;
+  role = '';
   mode = '';
   feedback = '';
   item: Item;
   allImages: String[];
   itemForm: FormGroup;
+  id_list;
 
   constructor(private fb: FormBuilder, private myListService: MyListService, private route: ActivatedRoute, private router: Router) {
     this.itemForm = this.fb.group({
@@ -30,6 +32,7 @@ export class ItemDetailComponent implements OnInit {
       id: [''],
       images: this.fb.array([]),
       name: ['', Validators.required],
+      description: ['', Validators.required],
       quantity: ['', Validators.required],
       order: ['', Validators.required],
       mode: ['']
@@ -41,12 +44,14 @@ export class ItemDetailComponent implements OnInit {
 
     var id = this.route.params['_value'].id;
     var id_list = this.route.params['_value'].id_list;
+    this.role = this.route.params['_value'].role;
     this.mode = this.route.params['_value'].mode;
 
     this.myListService.getItem(id_list, id)
       .valueChanges
       .subscribe(({data}) => {
         var item = JSON.parse(JSON.stringify(data))["item"];
+        this.id_list = item.id_list;
         if(this.mode == 'view') {
           this.itemForm.disable();
         }

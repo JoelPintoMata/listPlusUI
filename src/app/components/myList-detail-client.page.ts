@@ -52,7 +52,7 @@ export class MyListDetailClientComponent {
             var obj = JSON.parse(JSON.stringify(data));
             var itemsArray = [];
             obj.myList[0].items.map(item => {
-              itemsArray.push({"id_list": obj.myList[0].id, "id": item.id, "name": item.name, "order": item.order, "quantity": item.quantity});
+              itemsArray.push({"id_list": obj.myList[0].id, "id": item.id, "name": item.name, "description": item.description, "order": item.order, "quantity": item.quantity});
             });
             this.itemCount = itemsArray.length;
             this.items = itemsArray;

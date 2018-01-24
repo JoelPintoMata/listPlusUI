@@ -38,7 +38,7 @@
 >
   <ng-template #dataTableExpand let-item="item">
     <span [textContent]="item.name" style="padding: 5px; color: gray"></span>
-    <button type="button" routerLink='/myList/{{item.id_list}}/item/{{item.id}}/mode/view'>View</button>
+    <button type="button" routerLink='/myList/{{item.id_list}}/item/{{item.id}}/role/client/mode/view'>View</button>
   </ng-template>
 
   <data-table-column
@@ -62,6 +62,11 @@
     [sortable]="true">
   </data-table-column>
   <data-table-column
+    [property]="'description'"
+    [header]="'Description'"
+    [sortable]="true">
+  </data-table-column>
+  <data-table-column
     [property]="'order'"
     [header]="'Order'"
     [sortable]="true"
@@ -75,7 +80,7 @@
 </data-table>
 <nav>
   <a routerLink="/myLists">
-    <button class="btn btn-success">Back</button>
+    <button type="button" class="btn btn-primary">Back</button>
   </a>
   <!--<button (click)="getMyLists()" class="btn btn-primary">Refresh myList</button>-->
 </nav>
