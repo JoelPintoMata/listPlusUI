@@ -53,7 +53,7 @@ export class MyListDetailAdminComponent {
             var obj = JSON.parse(JSON.stringify(data));
             var itemsArray = [];
             obj.myList[0].items.map(item => {
-              itemsArray.push({"id_list": obj.myList[0].id, "id": item.id, "name": item.name, "description": item.description, "order": item.order});
+              itemsArray.push({"id_list": obj.myList[0].id, "id": item.id, "name": item.name, "order": item.order});
             });
             this.itemCount = itemsArray.length;
             this.items = itemsArray;
@@ -76,6 +76,7 @@ export class MyListDetailAdminComponent {
     };
 
     getQRCode() {
+      console.log('myList-detail: getQRCode');
       this.headers.append('Content-Type', 'application/json');
 
       let url = "http://rest-qr-code-generator.herokuapp.com/generateAndGetString";

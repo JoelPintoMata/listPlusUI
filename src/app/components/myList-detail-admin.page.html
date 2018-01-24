@@ -78,8 +78,11 @@
   <span [textContent]="itemsTable.selectedRow && itemsTable.selectedRow.item.title"></span>
 </div>
 <nav>
+  <a routerLink="/myList/{id_list}}/item/mode/insert">
+    <button class="btn btn-success">Add</button>
+  </a>
   <a routerLink="/myLists">
-    <button type="button" class="btn btn-primary">Back</button>
+    <button class="btn btn-primary">Back</button>
   </a>
   <!--<button (click)="getMyLists()" class="btn btn-primary">Refresh myList</button>-->
 </nav>
