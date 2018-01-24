@@ -36,8 +36,7 @@ export class MyListDetailAdminComponent {
     constructor(private http: Http,
       private sanitizer: DomSanitizer,
       private myListService: MyListService,
-      private route: ActivatedRoute,
-      private router: Router) {
+      private route: ActivatedRoute) {
 
       this.getQRCode();
     }
@@ -77,7 +76,6 @@ export class MyListDetailAdminComponent {
     };
 
     getQRCode() {
-      console.log('myList-detail: getQRCode');
       this.headers.append('Content-Type', 'application/json');
 
       let url = "http://rest-qr-code-generator.herokuapp.com/generateAndGetString";

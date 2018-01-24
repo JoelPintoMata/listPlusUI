@@ -11,9 +11,9 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-4">
+  <div *ngIf="image != null" class="col-md-4">
     <label>QR Code</label>
-    <img [src]="image" alt="Red dot">
+    <img [src]="image" alt="QR Code">
   </div>
   <div class="col-md-4">
   </div>
@@ -53,11 +53,6 @@
     [property]="'id'"
     [header]="'ID'"
     [sortable]="true">
-  </data-table-column>
-  <data-table-column
-    [property]="'images'"
-    [header]="'Image(s)'"
-    [sortable]="false">
   </data-table-column>
   <data-table-column
     [property]="'name'"
