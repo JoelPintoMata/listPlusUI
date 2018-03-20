@@ -1,5 +1,7 @@
 import { Injectable, Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+
+import { HttpClient } from '@angular/common/http';
+
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environment';
 import 'rxjs/add/operator/map';
@@ -90,7 +92,7 @@ export class MyListService {
 
   BASE_URL = environment.rest.apiUrlRoot;
 
-  constructor(private http: Http, private apollo: Apollo) {
+  constructor(private http: HttpClient, private apollo: Apollo) {
     console.log('myList.service: constructor');
     this.apollo = apollo;
   }
@@ -125,18 +127,6 @@ export class MyListService {
     });
   }
 
-  addMyList(myList: MyList): Observable<MyList> {
-    return this.http.post(`${this.BASE_URL}/myListsa`, myList).map((res: Response) => <MyList>res.json());
-  }
-
-  updateMyList(myList: MyList): Observable<MyList> {
-    return this.http.put(`${this.BASE_URL}/myListsb/${myList.id}`, myList).map((res: Response) => <MyList>res.json());
-  }
-
-  addItem(item: Item): Observable<Item> {
-    return this.http.post(`${this.BASE_URL}/itema`, item).map((res: Response) => <Item>res.json());
-  }
-
   updateItem(item: Item): Observable<ApolloQueryResult<Item>> {
     return this.apollo.mutate({
       mutation: UpdateItem,
@@ -150,14 +140,6 @@ export class MyListService {
         order: item.order
       }
     })
-  }
-
-  saveMyList(myList: MyList): Observable<MyList> {
-    if (myList.id) {
-      return this.updateMyList(myList);
-    } else {
-      return this.addMyList(myList);
-    }
   }
 
   saveItem(item: Item): Observable<ApolloQueryResult<Item>> {

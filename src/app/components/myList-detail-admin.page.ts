@@ -1,15 +1,19 @@
-import{Component, ViewChild, OnInit}from '@angular/core';
-import {ActivatedRoute, Params, Router}from '@angular/router';
-import {Http, Response, Headers}from '@angular/http';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+
+import { HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
-import {DataTable, DataTableTranslations, DataTableResource} from 'angular-4-data-table';
+import { Observable } from 'rxjs/Observable';
 
-import {MyList, Item, MyListService}from '../services/myList.service';
+import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-data-table-bootstrap-4';
+
+import { MyList, Item, MyListService } from '../services/myList.service';
 
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
-import {Observable }from 'rxjs/Observable';
 
 @Component({
   selector: 'if-myList-detail-admin',
@@ -21,7 +25,7 @@ import {Observable }from 'rxjs/Observable';
 
 export class MyListDetailAdminComponent {
 
-    headers = new Headers();
+    headers = new HttpHeaders();
 
     isNew = false;
     myList: MyList;
@@ -33,7 +37,7 @@ export class MyListDetailAdminComponent {
 
     @ViewChild(DataTable) itemsTable;
 
-    constructor(private http: Http,
+    constructor(private http: HttpClient,
       private sanitizer: DomSanitizer,
       private myListService: MyListService,
       private route: ActivatedRoute) {

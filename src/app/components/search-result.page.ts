@@ -1,7 +1,7 @@
 import { Injectable, Component, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-data-table';
+import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-data-table-bootstrap-4';
 
 import { Thing, MyListService } from '../services/myList.service';
 

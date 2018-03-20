@@ -1,11 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
+
+import { createHttpLink } from 'apollo-link-http';
+
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloModule, Apollo } from 'apollo-angular';
+
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+import { DataTableModule } from 'angular-4-data-table-bootstrap-4';
 
 import { ItemDetailComponent } from './components/item-detail.page';
 import { MyListDetailClientComponent } from './components/myList-detail-client.page';
@@ -18,19 +26,9 @@ import { UserListComponent } from './components/user-list.page';
 
 import { MyListService } from './services/myList.service';
 import { UserService } from './services/user.service';
-
 import { RolesResolverService } from './services/roles-resolver.service';
 
 import { environment } from '../environment';
-
-import { ApolloClient } from 'apollo-client';
-import { ApolloModule, Apollo } from 'apollo-angular';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
-
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-import { DataTableModule } from 'angular-4-data-table';
 
 const appRoutes: Routes = [
   {
@@ -73,11 +71,9 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [BrowserModule,
-    HttpModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    HttpLinkModule,
     ApolloModule,
     DataTableModule
   ],
@@ -89,11 +85,10 @@ const appRoutes: Routes = [
 export class AppModule {
   constructor(
     apollo: Apollo,
-    httpLink: HttpLink
   ) {
     apollo.create({
-//      link: httpLink.create({ uri: 'http://vast-springs-18949.herokuapp.com/graphql' }),
-      link: httpLink.create({ uri: 'http://localhost:8080/graphql' }),
+      link: createHttpLink({ uri: 'http://vast-springs-18949.herokuapp.com/graphql' }),
+      //link: httpLink.create({ uri: 'http://localhost:8080/graphql' }),
       cache: new InMemoryCache()
     });
   }
