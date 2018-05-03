@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   rest: {
-    apiUrlRoot: '/api/v1'
+    apiUrlRoot: '/api/v1',
+    qrCodeGenerator: 'https://rest-qr-code-generator.herokuapp.com/generateAndGet'
   }
 };
