@@ -84,12 +84,13 @@ export class MyListDetailAdminComponent {
       this.headers.append('Content-Type', 'application/json');
 
       let url = "http://rest-qr-code-generator.herokuapp.com/generateAndGetString";
+      //let url = "http://localhost:8080/generateAndGetString";
       this.http.post(url,
         {name:"name", url:"url"},
         {headers: this.headers})
         .subscribe(res => {
           var obj = JSON.parse(JSON.stringify(res));
-          this.image = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + obj._body);
+          this.image = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + obj.body);
         });
     }
 }
