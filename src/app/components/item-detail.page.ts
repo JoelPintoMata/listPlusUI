@@ -83,8 +83,8 @@ export class ItemDetailComponent implements OnInit {
       .subscribe(({data}) => {
         if (this.isNew) {
           this.router.navigate(['/myList/'+data.id_list+'/item/'+data.id]);
-        } else {
-          this.setFormData(data);
+        // } else {
+        //   this.setFormData(data);
         }
         this.itemForm.enable();
         this.feedback = 'SUCCESS';
