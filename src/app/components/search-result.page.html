@@ -27,10 +27,10 @@
 >
   <ng-template #dataTableExpand let-item="item">
     <span *ngIf="item.thingType == 'MyList'">
-      <button type="button" routerLink='/myList/{{item.id_list}}'>Go to</button>
+      <button type="button" routerLink='/myList/{{item.id_list}}/role/client'>Go to</button>
     </span>
     <span *ngIf="item.thingType == 'Item'">
-      <button type="button" routerLink='/myList/{{item.id_list}}/item/{{item.id}}'>Go to</button>
+      <button type="button" routerLink='/myList/{{item.id_list}}/item/{{item.id_item}}/role/client/mode/view'>Go to</button>
     </span>
   </ng-template>
 
