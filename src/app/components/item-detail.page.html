@@ -10,6 +10,18 @@
   <div class="col-md-4">
   </div>
 </div>
+<div class="row">
+  <div class="col-md-4">
+    <label>QR Code</label>
+    <img [src]="image" alt="QR Code">
+  </div>
+  <div class="col-md-4">
+    Hosted by:
+  </div>
+  <div class="col-md-4">
+    Buy me a coffee
+  </div>
+</div>
 <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" novalidate>
   <div class="row">
     <div class="col-sm-4">

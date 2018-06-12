@@ -12,6 +12,8 @@ import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-d
 
 import { MyList, Item, MyListService } from '../services/myList.service';
 
+import { environment } from '../../environment';
+
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
@@ -27,10 +29,10 @@ export class MyListDetailAdminComponent {
 
     headers = new HttpHeaders();
 
+    image: SafeResourceUrl;
+
     isNew = false;
     myList: MyList;
-
-    image: SafeResourceUrl;
 
     items = [];
     itemCount = 0;
